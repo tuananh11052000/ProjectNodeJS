@@ -31,4 +31,6 @@ admin.get('/view-post', verifyTokenAdmin, checkAdmin, CORS, controller.viewPost)
 admin.get('/create-post', verifyTokenAdmin, checkAdmin, CORS, controller.createPost)
 admin.post('/create-post', verifyTokenAdmin, checkAdmin, fileUploader.array('productImage'), CORS, controller.postCreatePost)
 
+admin.get('/logout', CORS, controller.logoutGet)
+
 module.exports = admin;

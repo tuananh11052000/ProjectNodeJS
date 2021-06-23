@@ -19,6 +19,10 @@ module.exports = {
     loginGet: (req, res, next) => {
         res.render('admin/login/index', { status: "" })
     },
+    logoutGet: (req, res, next) => {
+        res.cookie('token', '', { maxAge: 1 })
+        res.redirect('/admin/login')
+    },
     loginPost: async (req, res, next) => {
         let { PhoneNumber, Password } = req.body;
         let temp = '0123456789';
