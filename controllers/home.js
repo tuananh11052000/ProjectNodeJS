@@ -74,8 +74,10 @@ module.exports={
     //get page search
     search: async(req,res) =>{
         try {
-          
-            res.render('client/search');
+            const key = `"${req.query.searchterm}"`;
+            const post =await Post.find({ $text: { $search: key } })
+            
+            res.render('client/search',{data : post});
         } catch (error) {
             res.status(500).json({
                 success: false,

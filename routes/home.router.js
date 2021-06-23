@@ -6,8 +6,8 @@ const verifyToken = require('../middleware/auth_web')
 
 client.get('/', CORS, controller.getProduct);
 
-client.get('/view-post', verifyToken, CORS, controller.getDetail)
+client.get('/view-post', CORS, controller.getDetail)
 
-client.get('/search', verifyToken, CORS, controller.search)
+client.get('/search', CORS, controller.search)
 
 module.exports = client;
