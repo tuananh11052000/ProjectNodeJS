@@ -1,7 +1,6 @@
 const express = require('express');
 const admin = express.Router();
 const controller = require('../controllers/admin.controller');
-const controller_ = require('../controllers/post.controller')
 const verifyToken = require('../middleware/auth')
 const CORS = require('../middleware/CORS')
 const checkAdmin = require('../middleware/CheckAdmin')
@@ -30,6 +29,6 @@ admin.get('/all-post', verifyTokenAdmin, checkAdmin, CORS, controller.getAllPost
 admin.post('/remove-post', verifyTokenAdmin, checkAdmin, CORS, controller.removePost)
 admin.get('/view-post', verifyTokenAdmin, checkAdmin, CORS, controller.viewPost)
 admin.get('/create-post', verifyTokenAdmin, checkAdmin, CORS, controller.createPost)
-admin.post('/create-post', verifyTokenAdmin, checkAdmin, fileUploader.array('productImage'), CORS, controller_.createPost)
+admin.post('/create-post', verifyTokenAdmin, checkAdmin, fileUploader.array('productImage'), CORS, controller.createPost)
 
 module.exports = admin;

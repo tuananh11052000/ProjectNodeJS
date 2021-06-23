@@ -2,10 +2,8 @@ const argon2d = require('argon2');
 const Account = require('../Model/Account');
 const User = require('../Model/User')
 const jwt = require('jsonwebtoken');
-const { use } = require('../routes/post.router');
 const { json } = require('express');
 const { findOne } = require('../Model/Account');
-const account = require('../routes/account.router');
 require("dotenv").config();
 module.exports = {
     //Login
