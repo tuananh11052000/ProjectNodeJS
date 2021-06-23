@@ -143,7 +143,6 @@ module.exports = {
                 if (error) throw error;
                 temp = object.deletedCount;
             });
-
             User.remove(
                 { PhoneNumber: deletedAccount.PhoneNumber },
                 function (err, object) {
@@ -227,7 +226,8 @@ module.exports = {
                         FullName: req.body.FullName || editedUser.FullName,
                         BirthDay: req.body.BirthDay || editedUser.BirthDay,
                         Address: req.body.Address || editedUser.Address,
-                        Gender: req.body.Gender || editedUser.Gender
+                        Gender: req.body.Gender || editedUser.Gender,
+                        PhoneNumber: req.body.PhoneNumber || editedUser.PhoneNumber
                     }
                 }, function (err, data) {
                     if (err) {
@@ -251,6 +251,11 @@ module.exports = {
                     message: "User that you want to delete does not exists."
                 })
         try {
+            Account.remove({ PhoneNumber: deletedUser.PhoneNumber }, function (error, object) {
+                if (error) throw error;
+                temp = object.deletedCount;
+            });
+            console.log(deletedUser.PhoneNumber);
             User.remove({ _id: req.query._id }, function (error, object) {
                 if (error) throw error;
                 return res.status(200)

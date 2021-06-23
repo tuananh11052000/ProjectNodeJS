@@ -6,7 +6,25 @@
 
         <% include ../playout/menu.ejs %>
 
+            <style>
+                .btn_search {
+                    float: right;
+                    padding: 7px 10px;
+                    margin-top: 8px;
+                    margin-right: 16px;
+                    background: #ddd;
+                    font-size: 17px;
+                    border: none;
+                    cursor: pointer;
+                }
 
+                .input_search {
+                    padding: 6px;
+                    margin-top: 8px;
+                    font-size: 17px;
+                    border: none;
+                }
+            </style>
             <!--  SIDEBAR - END -->
             <!-- START CONTENT -->
             <section id="main-content" class=" ">
@@ -22,11 +40,18 @@
                                     <a class="box_close fa fa-times"></a>
                                 </div>
                             </header>
+                            <div style="float: left; margin-left: 30px">
+                                <input type="text" placeholder="Search PhoneNumber..." id="myInput"
+                                    onkeyup="myFunction()" name="search" class="input_search">
+                                <button type="submit" class="btn_search"><i class="fa fa-search"></i></button>
+                            </div>
+
+                            <div class="clearfix"></div>
                             <div class="content-body">
                                 <div class="row">
                                     <div class="col-xs-12">
                                         <!-- ********************************************** -->
-                                        <table class="rwd-table container">
+                                        <table class="rwd-table container" id="myTable">
                                             <thead>
                                                 <tr>
                                                     <th style="width: 100px;">
@@ -110,5 +135,23 @@
                     function viewAccount(id) {
                         let url = `admin/view-account?_id=${id}`
                         location.href = url
+                    }
+                    function myFunction() {
+                        var input, filter, table, tr, td, i, txtValue;
+                        input = document.getElementById("myInput");
+                        filter = input.value.toUpperCase();
+                        table = document.getElementById("myTable");
+                        tr = table.getElementsByTagName("tr");
+                        for (i = 0; i < tr.length; i++) {
+                            td = tr[i].getElementsByTagName("td")[3];
+                            if (td) {
+                                txtValue = td.textContent || td.innerText;
+                                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                    tr[i].style.display = "";
+                                } else {
+                                    tr[i].style.display = "none";
+                                }
+                            }
+                        }
                     }
                 </script>
