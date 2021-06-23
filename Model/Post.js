@@ -36,7 +36,8 @@ const Post = new mongoose.Schema({
   },
   title: {
     type: String,
-    required: true
+    required: true,
+    
   },
   note: {
     type: String,
@@ -54,4 +55,7 @@ const Post = new mongoose.Schema({
   timestamps: true,
   versionKey: false,
 })
+
+Post.index({'NameProduct': 'text','title': 'text','address':'text'}); //đm bắt buộc dùng này mới tìm đc nghen
+
 module.exports = mongoose.model('Post', Post)
