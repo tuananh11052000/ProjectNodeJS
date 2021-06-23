@@ -71,11 +71,11 @@ module.exports={
       
         
     },
-
-    getPhonNumber: async (req, res) => {
+    //get page search
+    search: async(req,res) =>{
         try {
-            const account = await Account.findOne({ '_id':req.query._id })
-            res.render('client/product_details',{data:data_post});
+          
+            res.render('client/search');
         } catch (error) {
             res.status(500).json({
                 success: false,
