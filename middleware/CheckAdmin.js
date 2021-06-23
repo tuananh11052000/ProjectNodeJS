@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const Account = require('../Model/Account');
 
 const checkAdmin = async (req, res, next) => {
+    console.log(req.body)
     const account = await Account.findOne(
         { '_id': req.accountID }
     )

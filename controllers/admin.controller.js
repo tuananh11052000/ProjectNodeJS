@@ -6,7 +6,13 @@ const jwt = require('jsonwebtoken');
 require("dotenv").config();
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const verifyToken = require('../middleware/auth')
+const Product = require('../Model/Product')
+const cloudinary_detele = require('../configs/cloudinary.delete')
+const multer = require('multer');
+const { json } = require('express');
+var ObjectID = require('mongodb').ObjectID;
+const { findOne } = require('../Model/User');
 module.exports = {
     //get information all account
     //client must contain token in the request
@@ -307,5 +313,58 @@ module.exports = {
     },
     createPost: (req, res, next) => {
         res.render('admin/post/createPost', { isOpen: ["", "", "", "open"] })
+    },
+    postCreatePost: async (req, res) => {
+        const {
+            title,
+            note,
+            NameProduct,
+            TypeAuthor,
+            NameAuthor,
+            address,
+        } = req.body;
+        try {
+            if (!title) {
+                res.render('admin/post/error', { isOpen: ["", "", "", "open"] })
+            }
+            const findInfoAuthor = await User.findOne(
+                { 'AccountID': req.accountID }
+            )
+            if (!findInfoAuthor) {
+                res.render('admin/post/error', { isOpen: ["", "", "", "open"] })
+            }
+            else {
+                let productPost = []
+                for (let i = 0; i < NameProduct.length; i++) {
+                    let temp = await Product.findOne({ "NameProduct": NameProduct[i] })
+                    if (temp != null)
+                        productPost.push(temp)
+                }
+                const dataPost = await new Post({
+                    'AuthorID': req.accountID,
+                    'TypeAuthor': TypeAuthor || 'Cá nhân',
+                    'NameAuthor': NameAuthor || findInfoAuthor.FullName,
+                    'address': address,
+                    'NameProduct': productPost,
+                    'title': title,
+                    'note': note,
+                    'urlImage': req.files.map(function (files) {
+                        return files.path
+                    })
+
+                })
+                dataPost.save(function (err, data) {
+                    if (err) {
+                        res.json(err)
+                    }
+                    else {
+                        res.render('admin/post/success', { isOpen: ["", "", "", "open"] })
+                    }
+                })
+            }
+        } catch (error) {
+            res.render('admin/post/error', { isOpen: ["", "", "", "open"] })
+        }
+
     }
 }
