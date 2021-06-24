@@ -84,6 +84,17 @@ module.exports={
                 message: error.message
             });
         }
+    },
+    
+    ProfileUser: async(req,res)=>{
+        try {
+            res.render('client/profile');
+        }  catch (error) {
+            res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
     }
 }
 
