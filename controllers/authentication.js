@@ -63,7 +63,7 @@ module.exports = {
                 const data = new Account({
                     'Password': hashedPassword,
                     'PhoneNumber': PhoneNumber,
-                    'Rule': 1
+                    'Rule': 2
                 })
                 const UserDetail = new User({
                     'PhoneNumber': PhoneNumber,
