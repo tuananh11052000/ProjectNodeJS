@@ -157,15 +157,16 @@ module.exports = {
             )
             //xoa post
             let post = await Post.findOne({ AuthorID: req.query._id });
-            post.urlImage.map(function (url) {
-                //delete image
-                //Tách chuỗi lấy id
-                const image_type = url.split(/[/,.]/)
-                //lấy tách ID
-                const imageId = image_type[image_type.length - 2]
-                //xóa ảnh
-                cloudinary_detele.uploader.destroy(imageId);
-            })
+            if (post)
+                post.urlImage.map(function (url) {
+                    //delete image
+                    //Tách chuỗi lấy id
+                    const image_type = url.split(/[/,.]/)
+                    //lấy tách ID
+                    const imageId = image_type[image_type.length - 2]
+                    //xóa ảnh
+                    cloudinary_detele.uploader.destroy(imageId);
+                })
             Post.remove(
                 { AuthorID: req.query._id }, function (err, object) {
                     if (err)
@@ -278,10 +279,10 @@ module.exports = {
         try {
             let temp;
             //xoa tai khoan
-            // User.remove({ _id: req.query._id }, function (error, object) {
-            //     if (error) throw error;
-            //     temp = object.deletedCount;
-            // });
+            User.remove({ _id: req.query._id }, function (error, object) {
+                if (error) throw error;
+                temp = object.deletedCount;
+            });
             //xoa user
             let id;
             await Account.findOne({ PhoneNumber: deletedUser.PhoneNumber }).then(data => {
@@ -295,15 +296,16 @@ module.exports = {
             )
             //xoa post
             let post = await Post.findOne({ AuthorID: id });
-            post.urlImage.map(function (url) {
-                //delete image
-                //Tách chuỗi lấy id
-                const image_type = url.split(/[/,.]/)
-                //lấy tách ID
-                const imageId = image_type[image_type.length - 2]
-                //xóa ảnh
-                cloudinary_detele.uploader.destroy(imageId);
-            })
+            if (post)
+                post.urlImage.map(function (url) {
+                    //delete image
+                    //Tách chuỗi lấy id
+                    const image_type = url.split(/[/,.]/)
+                    //lấy tách ID
+                    const imageId = image_type[image_type.length - 2]
+                    //xóa ảnh
+                    cloudinary_detele.uploader.destroy(imageId);
+                })
             Post.remove(
                 { AuthorID: id }, function (err, object) {
                     if (err)
