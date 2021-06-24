@@ -10,4 +10,6 @@ client.get('/view-post', CORS, controller.getDetail)
 
 client.get('/search', CORS, controller.search)
 
+client.get('/profile', CORS, controller.ProfileUser)
+
 module.exports = client;
