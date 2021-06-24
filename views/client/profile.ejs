@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="client/css/style.css">
+    <link rel="stylesheet" href="client/css/profile.css">
+    <!-- fav icon -->
+    <link rel="icon" href="client/images/icon.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+
+<body class="bg-light">
+    <!-- preloader -->
+    <div class="wrap-loader">
+        <div class="loader"></div>
+    </div>
+    <!-- header -->
+    <div class="header">
+        <div class="menu-icon">
+            <span class="fas fa-bars"></span>
+        </div>
+        <div class="logo">
+            CodeWeb
+        </div>
+        <div class="header-items">
+            <li><a href="./index.html">Trang chủ</a></li>
+            <li> <a href="#">Tin đăng</a> </li>
+            <li><a href="#">Thông báo</a></li>
+        </div>
+
+        <div class="search-icon">
+            <span class="fas fa-search"></span>
+        </div>
+        <div class="cancel-icon">
+            <span class="fas fa-times"></span>
+        </div>
+        <form action="./search.html">
+            <input type="search" class="search-data" placeholder="Search" required>
+            <button type="submit" class="fas fa-search"></button>
+        </form>
+
+        <div class="header-user">
+            <li><a href="./login.html"><i class="fas fa-user"></i></a></li>
+            <li><button type="button" class="btn-post" data-bs-toggle="modal" data-bs-target="#myModal"><i
+            class="far fa-edit"></i> Đăng tin</button></li>
+        </div>
+    </div>
+    <!-- end of header -->
+
+    <!-- content ---------------------------------------->
+    <div class="wrap-content">
+        <div class="container-fluid wrap-user">
+            <div class="row">
+                <div class="col-xs-12 col-md-6 basic-infor">
+                    <div class="avatar">
+                        <img src="./images/avatar.svg" alt="avatar">
+                    </div>
+                    <div class="infor">
+                        <span class="name">Ngan Van Luyen</span>
+                        <div class="follow row">
+                            <div class="col-6"><a href="#"><b>99</b> Người theo dõi</a></div>
+                            <div class="col-6"><a href="#"><b>99</b> Đang theo dõi</a></div>
+                        </div>
+                        <div class="contact">
+                            <p>
+                                <i class="fas fa-map-marker-alt"></i> Linh Trung, Thủ Đức, Hồ Chí Minh
+                            </p>
+                            <p>
+                                <i class="fas fa-phone-alt"></i> 0868 888 888
+                            </p>
+                        </div>
+                        <div class="edit-infor">
+                            <button class="edit-profile">Chỉnh sửa trang cá nhân</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-md-6 extra-infor">
+                    <div class="itemRow">
+                        <p>
+                            <i class="far fa-star"></i>
+                            <div class="item-title"> &nbsp;Đánh giá:&nbsp;</div>
+                            <div class="item-infor">Chưa có đánh giá</div>
+                        </p>
+                    </div>
+                    <div class="itemRow">
+                        <p>
+                            <i class="far fa-calendar-alt"></i>
+                            <div class="item-title"> &nbsp;Ngày tham gia:&nbsp;</div>
+                            <div class="item-infor">01/06/2021</div>
+                        </p>
+                    </div>
+                    <div class="itemRow">
+                        <p>
+                            <i class="far fa-comments"></i>
+                            <div class="item-title"> &nbsp;Tỉ lệ phản hồi:&nbsp;</div>
+                            <div class="item-infor">Chưa có thông tin</div>
+                        </p>
+                    </div>
+                    <div class="itemRow">
+                        <p>
+                            <i class="far fa-check-circle"></i>
+                            <div class="item-title"> &nbsp;Số lần giao dịch:&nbsp;</div>
+                            <div class="item-infor">Chưa có thống tin</div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid p-1 wrap-post">
+            <div class="row title-post">
+                <div class="col-lg-6">
+                    <h4>Tin đã đăng</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-6 text-center product-center">
+                    <div class="product border-0 bg-light mb-2">
+                        <div class="product-header">
+                            <img src="./images/books/book-1.jpg" class="img-fluid" alt="">
+                            <ul class="icons">
+                                <span><i class="far fa-heart"></i></span>
+                                <span><i class="fas fa-shopping-cart"></i></span>
+                                <span><i class="fas fa-search"></i></span>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="product-footer">
+                        <a href="./product-details.html" class="text-decoration-none">
+                            <h5>Sách</h5>
+                        </a>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="price">100 000đ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- end of content --------------------------------->
+    <!-- footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div>
+                <h2 class="footer-title">Về chúng tôi </h2>
+                <p>Giao dịch, đừng giao ‘dịch’. Mua bán trong thời điểm này, bạn nhớ làm theo khuyến cáo 5k của Bộ Y Tế: “Khẩu trang – Khử khuẩn – Khoảng cách – Không tập trung – Khai báo y tế” để đảm bảo an toàn cho bản thân, gia đình và cộng đồng nhé!</p>
+                <ul class="social-icons">
+                    <li class="flex">
+                        <img src="./images/social-logo/circle-facebook.svg" alt="facebook">
+                    </li>
+                    <li class="flex">
+                        <img src="./images/social-logo/circle-messenger.svg" alt="messenger">
+                    </li>
+                    <li class="flex">
+                        <img src="./images/social-logo/circle-zalo.svg" alt="zalo">
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h2 class="footer-title">Hỗ trợ khách hàng</h2>
+                <a href="#">Chăm sóc khách hàng</a>
+                <a href="#">Thanh toán</a>
+                <a href="#">Hướng dẫn mua hàng</a>
+            </div>
+
+            <div>
+                <h2 class="footer-title">Chính sách</h2>
+                <a href="#">Giao hàng & vận chuyển</a>
+                <a href="#">Chính sách bảo mật</a>
+                <a href="#">Chính sách mua hàng</a>
+                <a href="#">Liên hệ hỗ trợ</a>
+            </div>
+
+            <div>
+                <h2 class="footer-title">Thông tin liên hệ</h2>
+                <div class="contact-item">
+                    <span>
+            <i class="fas fa-map-marker-alt"></i>
+          </span>
+                    <span>
+            Khu phố 6, Thủ Đức, Thành phố Hồ Chí Minh
+          </span>
+                </div>
+                <div class="contact-item">
+                    <span>
+            <i class="fas fa-phone-alt"></i>
+          </span>
+                    <span>
+            0868 888 888
+          </span>
+                </div>
+                <div class="contact-item">
+                    <span>
+            <i class="fas fa-envelope"></i>
+          </span>
+                    <span>
+            cntt2018@gmail.com
+          </span>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- end of footer -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <script src="./js/script.js"></script>
+    <script type="text/javascript" src="./js/main.js"></script>
+</body>
+
+</html>
