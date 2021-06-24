@@ -143,14 +143,23 @@ module.exports = {
         }
         try {
             let temp;
+            //xoa tai khoan
             Account.remove({ _id: req.query._id }, function (error, object) {
                 if (error) throw error;
                 temp = object.deletedCount;
             });
+            //xoa user
             User.remove(
                 { PhoneNumber: deletedAccount.PhoneNumber },
                 function (err, object) {
                     if (err) throw err;
+                }
+            )
+            //xoa post
+            Post.remove(
+                { AuthorID: req.query._id }, function (err, object) {
+                    if (err)
+                        throw err;
                     return res
                         .status(200)
                         .json({
@@ -158,7 +167,8 @@ module.exports = {
                             message: `update success: ${temp} account and ${object.deletedCount} user`
                         })
                 }
-            )
+            );
+
         } catch (err) {
             return res
                 .status(500)
@@ -247,32 +257,53 @@ module.exports = {
     },
     removeUser: async (req, res, next) => {
         let deletedUser = await User.findOne({ _id: req.query._id });
-        if (!deletedUser)
+        if (!deletedUser) {
             return res
-                .status(501)
+                .status(500)
                 .json({
                     success: false,
-                    message: "User that you want to delete does not exists."
+                    message: "the user you chosen does not exists."
                 })
+        }
         try {
-            Account.remove({ PhoneNumber: deletedUser.PhoneNumber }, function (error, object) {
+            let temp;
+            //xoa tai khoan
+            User.remove({ _id: req.query._id }, function (error, object) {
                 if (error) throw error;
                 temp = object.deletedCount;
             });
-            console.log(deletedUser.PhoneNumber);
-            User.remove({ _id: req.query._id }, function (error, object) {
-                if (error) throw error;
-                return res.status(200)
-                    .json({
-                        success: true,
-                        message: `updated success: ${object.deletedCount} record`
-                    })
-            });
+            //xoa user
+            let id;
+            await Account.findOne({ PhoneNumber: deletedUser.PhoneNumber }).then(data => {
+                id = data._id;
+            })
+            Account.remove(
+                { PhoneNumber: deletedUser.PhoneNumber },
+                function (err, object) {
+                    if (err) throw err;
+                }
+            )
+            //xoa post
+            Post.remove(
+                { AuthorID: id }, function (err, object) {
+                    if (err)
+                        throw err;
+                    return res
+                        .status(200)
+                        .json({
+                            success: true,
+                            message: `update success: ${temp} user and ${object.deletedCount} account`
+                        })
+                }
+            );
+
         } catch (err) {
-            return res.status(500).json({
-                success: false,
-                message: error.message
-            });
+            return res
+                .status(500)
+                .json({
+                    success: false,
+                    message: err.message
+                })
         }
     },
     viewUser: async (req, res, next) => {
