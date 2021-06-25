@@ -43,7 +43,11 @@ const Post = new mongoose.Schema({
     type: String,
 
   },
-  urlImage: []
+  urlImage: [],
+  confirm:
+  {
+    type:Boolean,
+  }
   /*expireAt: {
    type: Date,
    default: Date.now,
