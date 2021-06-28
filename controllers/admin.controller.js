@@ -61,7 +61,12 @@ module.exports = {
         let countAccount = await Account.count();
         let countUser = await User.count();
         let countPost = await Post.count();
-        res.render('admin/main/index', { account: countAccount, user: countUser, post: countPost, isOpen: ["open", "", "", ""] })
+        let numberOfPostWaiting = 0;
+        await Post.find({ confirm: false }).then((data) => {
+            numberOfPostWaiting = data.length;
+        })
+        console.log(numberOfPostWaiting)
+        res.render('admin/main/index', { account: countAccount, user: countUser, post: countPost, postWaiting: numberOfPostWaiting, isOpen: ["open", "", "", ""] })
     }
     ,
     getAllAccount: async (req, res, next) => {
@@ -157,7 +162,7 @@ module.exports = {
             )
             //xoa post
             let post = await Post.findOne({ AuthorID: req.query._id });
-            if (post)
+            if (post) {
                 post.urlImage.map(function (url) {
                     //delete image
                     //Tách chuỗi lấy id
@@ -167,6 +172,8 @@ module.exports = {
                     //xóa ảnh
                     cloudinary_detele.uploader.destroy(imageId);
                 })
+            }
+
             Post.remove(
                 { AuthorID: req.query._id }, function (err, object) {
                     if (err)
@@ -296,7 +303,7 @@ module.exports = {
             )
             //xoa post
             let post = await Post.findOne({ AuthorID: id });
-            if (post)
+            if (post) {
                 post.urlImage.map(function (url) {
                     //delete image
                     //Tách chuỗi lấy id
@@ -306,6 +313,8 @@ module.exports = {
                     //xóa ảnh
                     cloudinary_detele.uploader.destroy(imageId);
                 })
+            }
+
             Post.remove(
                 { AuthorID: id }, function (err, object) {
                     if (err)
@@ -338,7 +347,13 @@ module.exports = {
     getAllPost: async (req, res, next) => {
         try {
             Post.find().then((data) => {
-                res.render('admin/post/allPost', { post: data, url: process.env.URL, isOpen: ["", "", "", "open"] })
+                let data_ = [];
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].confirm == true) {
+                        data_.push(data[i]);
+                    }
+                }
+                res.render('admin/post/allPost', { post: data_, url: process.env.URL, isOpen: ["", "", "", "open"] })
             })
         } catch (error) {
             return res
@@ -385,6 +400,25 @@ module.exports = {
     createPost: (req, res, next) => {
         res.render('admin/post/createPost', { isOpen: ["", "", "", "open"] })
     },
+    confirmPost: async (req, res, next) => {
+        await Post.find({ confirm: false }).then((data) => {
+            res.render('admin/post/confirmPost', { post: data, url: process.env.URL, isOpen: ["", "", "", "open"] })
+        })
+    },
+    confirmPostPost: async (req, res, next) => {
+        Post.updateOne(
+            { _id: req.query._id },
+            {
+                $set: {
+                    confirm: true
+                }
+            }, function (err, data) {
+                if (err)
+                    res.send("error")
+                else
+                    res.send("oke")
+            });
+    },
     postCreatePost: async (req, res) => {
         const {
             title,
@@ -419,6 +453,7 @@ module.exports = {
                     'NameProduct': productPost,
                     'title': title,
                     'note': note,
+                    'confirm': false,
                     'urlImage': req.files.map(function (files) {
                         return files.path
                     })

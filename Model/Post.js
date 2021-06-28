@@ -6,8 +6,6 @@ const Post = new mongoose.Schema({
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
-
-
   TypeAuthor: {
     type: String,
     require: true,
@@ -22,7 +20,6 @@ const Post = new mongoose.Schema({
   NameAuthor: {
     required: true,
     type: String,
-
   },
   address: {
     required: true,
@@ -37,7 +34,6 @@ const Post = new mongoose.Schema({
   title: {
     type: String,
     required: true,
-    
   },
   note: {
     type: String,
@@ -46,7 +42,7 @@ const Post = new mongoose.Schema({
   urlImage: [],
   confirm:
   {
-    type:Boolean,
+    type: Boolean,
   }
   /*expireAt: {
    type: Date,
@@ -60,6 +56,6 @@ const Post = new mongoose.Schema({
   versionKey: false,
 })
 
-Post.index({'NameProduct': 'text','title': 'text','address':'text'}); //đm bắt buộc dùng này mới tìm đc nghen
+Post.index({ 'NameProduct': 'text', 'title': 'text', 'address': 'text' }); //đm bắt buộc dùng này mới tìm đc nghen
 
 module.exports = mongoose.model('Post', Post)

@@ -42,12 +42,8 @@
                                 </div>
                             </header>
                             <div style="text-align: right;">
-                                <button class="btn btn-success" onclick="redirectCreatePost()"
-                                    style="width: 150px">Crate new post</button>
-                            </div>
-                            <div style="text-align: right;">
-                                <button class="btn btn-warning" style="width: 150px"
-                                    onclick="redirectConfirmPost()">Confirm post</button>
+                                <button class="btn btn-success" style="width: 150px" onclick="redirectBack()">All
+                                    Post</button>
                             </div>
                             <div style="float: left; margin-left: 30px">
                                 <input type="text" placeholder="Search name product..." id="myInput"
@@ -71,7 +67,7 @@
                                                     <th>Product</th>
                                                     <th>Title</th>
                                                     <th>Address</th>
-                                                    <th style="width: 170px; text-align: center;">
+                                                    <th style="width: 200px; text-align: center;">
                                                         Action</th>
                                                 </tr>
                                             </thead>
@@ -112,6 +108,10 @@
                                                                     onclick="deletePost('<%=item._id%>')"><i
                                                                         class="fa fa-trash-alt"></i>
                                                                 </button>
+                                                                <button type="button" class="circle circle2"
+                                                                    onclick="confirmPost('<%=item._id%>')"><i
+                                                                        class="fas fa-check"></i>
+                                                                </button>
                                                             </td>
                                                         </tr>
                                                         <%})%>
@@ -150,15 +150,21 @@
                             location.href = "admin/all-post";
                         })
                     }
+                    async function confirmPost(id) {
+                        console.log("ok")
+                        await axios({
+                            method: 'POST',
+                            url: `<%=url %>/admin/confirm-post?_id=${id}`
+                        }).then(data => {
+                            location.href = "admin/confirm-post";
+                        })
+                    }
                     function viewPost(id) {
                         let url = `admin/view-post?_id=${id}`
                         location.href = url
                     }
-                    function redirectCreatePost() {
-                        location.href = "admin/create-post";
-                    }
-                    function redirectConfirmPost() {
-                        location.href = "admin/confirm-post";
+                    function redirectBack() {
+                        location.href = "admin/all-post";
                     }
                     function myFunction() {
                         var input, filter, table, tr, td, i, txtValue;

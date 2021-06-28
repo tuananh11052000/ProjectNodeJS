@@ -30,6 +30,8 @@ admin.post('/remove-post', verifyTokenAdmin, checkAdmin, CORS, controller.remove
 admin.get('/view-post', verifyTokenAdmin, checkAdmin, CORS, controller.viewPost)
 admin.get('/create-post', verifyTokenAdmin, checkAdmin, CORS, controller.createPost)
 admin.post('/create-post', verifyTokenAdmin, checkAdmin, fileUploader.array('productImage'), CORS, controller.postCreatePost)
+admin.get('/confirm-post', verifyTokenAdmin, checkAdmin, CORS, controller.confirmPost)
+admin.post('/confirm-post', verifyTokenAdmin, checkAdmin, CORS, controller.confirmPostPost)
 
 admin.get('/logout', CORS, controller.logoutGet)
 
