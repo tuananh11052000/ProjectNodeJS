@@ -13,6 +13,6 @@ client.get('/search', CORS, controller.search)
 
 client.get('/profile', CORS, controller.ProfileUser)
 
-client.post('/create-post', verifyToken, fileUploader.array('productImage'), CORS, controller.postCreatePost)
+client.post('/create-post', verifyToken, fileUploader.array('productImage', 12), CORS, controller.postCreatePost)
 
 module.exports = client;
