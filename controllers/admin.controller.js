@@ -471,6 +471,5 @@ module.exports = {
         } catch (error) {
             res.render('admin/post/error', { isOpen: ["", "", "", "open"] })
         }
-
     }
 }

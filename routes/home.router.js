@@ -3,6 +3,7 @@ const client = express.Router();
 const controller = require('../controllers/home');
 const CORS = require('../middleware/CORS')
 const verifyToken = require('../middleware/auth_web')
+const fileUploader = require('../configs/cloudinary.config');
 
 client.get('/', CORS, controller.getProduct);
 
@@ -11,5 +12,7 @@ client.get('/view-post', CORS, controller.getDetail)
 client.get('/search', CORS, controller.search)
 
 client.get('/profile', CORS, controller.ProfileUser)
+
+client.post('/create-post', verifyToken, fileUploader.array('productImage'), CORS, controller.postCreatePost)
 
 module.exports = client;
