@@ -10,7 +10,7 @@
             </div>
             <div class="profile-details col-xs-8">
                 <h3>
-                    <a href="ui-profile.html" class="name">Shane Taylor</a>
+                    <a href="ui-profile.html" class="name" id="name"></a>
                     <!-- Available statuses: online, idle, busy, away and offline -->
                     <span class="profile-status online"></span>
                 </h3>
@@ -50,5 +50,27 @@
     <!-- MAIN MENU - END -->
 </div>
 <script>
-    document.getElementById("avatar_").src = unescape(value);
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+    let temp = readCookie("accountID");
+    temp = unescape(temp).slice(3, -1);
+    console.log(temp)
+    axios({
+        method: "get",
+        url: "http://localhost:3000/admin/getAccount?_id=" + temp
+    }).then((data) => {
+        console.log(data)
+        console.log(data.data.data.avatar)
+        document.getElementById("avatar").src = data.data.data[0].avatar
+        document.getElementById("avatar_").src = data.data.data[0].avatar
+        document.getElementById("name").innerHTML = data.data.data[1].FullName
+    })
 </script>

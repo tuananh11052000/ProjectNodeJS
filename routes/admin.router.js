@@ -34,5 +34,6 @@ admin.get('/confirm-post', verifyTokenAdmin, checkAdmin, CORS, controller.confir
 admin.post('/confirm-post', verifyTokenAdmin, checkAdmin, CORS, controller.confirmPostPost)
 
 admin.get('/logout', CORS, controller.logoutGet)
+admin.get('/getAccount', CORS, controller.findAccount)
 
 module.exports = admin;

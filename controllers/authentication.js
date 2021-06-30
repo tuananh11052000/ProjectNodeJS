@@ -89,6 +89,7 @@ module.exports = {
     },
     logout: (req, res, next) => {
         res.cookie('token', '', { maxAge: 1 })
+        res.cookie('accountID', '', { maxAge: 1 })
         res.redirect('/client/login')
     }
 

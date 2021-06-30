@@ -48,8 +48,9 @@ module.exports = {
                     process.env.ACCESS_TOKEN_SECRET
                 );
                 res.cookie('token', accessToken, { maxAge: 900000, httpOnly: true });
+                let id = account[0]._id
                 if (account[0].avatar) {
-                    res.cookie('avatar', account[0].avatar, { maxAge: 900000, httpOnly: false });
+                    res.cookie('accountID', account[0]._id, { maxAge: 900000, httpOnly: false });
                 }
                 else {
                     res.cookie('avatar', "https://image.flaticon.com/icons/png/512/147/147144.png", { maxAge: 900000, httpOnly: false });
@@ -479,5 +480,17 @@ module.exports = {
         } catch (error) {
             res.render('admin/post/error', { isOpen: ["", "", "", "open"] })
         }
+    },
+    findAccount: async (req, res, next) => {
+        console.log("_________________________________________")
+        await Account.findOne({ _id: req.query._id }).then((data) => {
+            User.findOne({ AccountID: req.query._id }).then((data_) => {
+                return res.status(200).json({
+                    success: true,
+                    data: [data, data_]
+                })
+            })
+
+        })
     }
 }
