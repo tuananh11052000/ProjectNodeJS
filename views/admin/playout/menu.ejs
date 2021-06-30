@@ -5,7 +5,7 @@
         <div class="profile-info row">
             <div class="profile-image col-xs-4">
                 <a href="ui-profile.html">
-                    <img alt="" src="img/avatar.jpg" class="img-responsive img-circle avatar">
+                    <img src="img/avatar.jpg" id="avatar_" class="img-responsive img-circle avatar">
                 </a>
             </div>
             <div class="profile-details col-xs-8">
@@ -49,3 +49,6 @@
     </div>
     <!-- MAIN MENU - END -->
 </div>
+<script>
+    document.getElementById("avatar_").src = unescape(value);
+</script>

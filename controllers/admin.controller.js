@@ -21,6 +21,7 @@ module.exports = {
     },
     logoutGet: (req, res, next) => {
         res.cookie('token', '', { maxAge: 1 })
+        res.cookie('avatar', '', { maxAge: 1 })
         res.redirect('/admin/login')
     },
     loginPost: async (req, res, next) => {
@@ -47,6 +48,13 @@ module.exports = {
                     process.env.ACCESS_TOKEN_SECRET
                 );
                 res.cookie('token', accessToken, { maxAge: 900000, httpOnly: true });
+                if (account[0].avatar) {
+                    res.cookie('avatar', account[0].avatar, { maxAge: 900000, httpOnly: false });
+                }
+                else {
+                    res.cookie('avatar', "https://image.flaticon.com/icons/png/512/147/147144.png", { maxAge: 900000, httpOnly: false });
+                }
+
                 console.log('cookie created successfully');
                 return res.redirect("/admin/home");
             } else {

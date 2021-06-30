@@ -21,6 +21,9 @@ const Account = new mongoose.Schema({
     },
     updateAt: {
         type: Schema.Types.Date
+    },
+    avatar: {
+        type: String
     }
 }, {
     collection: 'Account',
