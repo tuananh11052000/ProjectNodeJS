@@ -22,20 +22,26 @@
             <div class="row">
                 <div class="col-xs-12 col-md-6 basic-infor">
                     <div class="avatar">
+                    
+                    <% if(!data_Profile.urlIamge) { %>
                         <img src="client/images/avatar.svg" alt="avatar">
+                        <%} else {%>
+                        <img src="<%=data_Profile.urlIamge%>"alt="avatar">%>
+                      <%}%>  
+                        
                     </div>
                     <div class="infor">
-                        <span class="name">Ngan Van Luyen</span>
+                        <span class="name"><%= data_Profile.FullName %></span>
                         <div class="follow row">
                             <div class="col-6"><a href="#"><b>99</b> Người theo dõi</a></div>
                             <div class="col-6"><a href="#"><b>99</b> Đang theo dõi</a></div>
                         </div>
                         <div class="contact">
                             <p>
-                                <i class="fas fa-map-marker-alt"></i> Linh Trung, Thủ Đức, Hồ Chí Minh
+                                <i class="fas fa-map-marker-alt"></i> Chưa có thông tin
                             </p>
                             <p>
-                                <i class="fas fa-phone-alt"></i> 0868 888 888
+                                <i class="fas fa-phone-alt"></i> <%="+84"+data_Profile.PhoneNumber %>
                             </p>
                         </div>
                         <div class="edit-infor">
@@ -56,7 +62,10 @@
                         <p>
                             <i class="far fa-calendar-alt"></i>
                             <div class="item-title"> &nbsp;Ngày tham gia:&nbsp;</div>
-                            <div class="item-infor">01/06/2021</div>
+                           
+                            <div class="item-infor"><%
+                            theDate = new Date( Date.parse(data_Profile.createdAt)) %>
+                            <%= theDate.toLocaleDateString() %></div>
                         </p>
                     </div>
                     <div class="itemRow">
@@ -80,7 +89,7 @@
         <div class="container-fluid p-1 wrap-post">
             <div class="row title-post">
                 <div class="col-lg-6">
-                    <h4>Tin đã đăng</h4>
+                    <h4>Lịch sử đã coi</h4>
                 </div>
             </div>
             <div class="row">
