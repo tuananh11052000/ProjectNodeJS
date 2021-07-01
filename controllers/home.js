@@ -24,6 +24,7 @@ module.exports = {
                     res.render('client/home', { status: ["", "", "Lỗi server"] });
                 }
                 else {
+                    
                     data_product = docs;
                     res.render('client/home', { title: 'Express', data: docs });
                 }
@@ -85,6 +86,7 @@ module.exports = {
 
     ProfileUser: async (req, res) => {
         try {
+           
             res.render('client/profile');
         } catch (error) {
             res.status(500).json({

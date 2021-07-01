@@ -11,7 +11,7 @@ client.get('/view-post', CORS, controller.getDetail)
 
 client.get('/search', CORS, controller.search)
 
-client.get('/profile', CORS, controller.ProfileUser)
+client.get('/profile',verifyToken, CORS, controller.ProfileUser)
 
 client.post('/create-post', verifyToken, fileUploader.array('productImage', 12), CORS, controller.postCreatePost)
 
