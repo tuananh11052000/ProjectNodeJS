@@ -5,7 +5,7 @@
         <div class="profile-info row">
             <div class="profile-image col-xs-4">
                 <a href="ui-profile.html">
-                    <img src="img/avatar.jpg" id="avatar_" class="img-responsive img-circle avatar">
+                    <img  id="avatar_" class="img-responsive img-circle avatar">
                 </a>
             </div>
             <div class="profile-details col-xs-8">
@@ -14,7 +14,7 @@
                     <!-- Available statuses: online, idle, busy, away and offline -->
                     <span class="profile-status online"></span>
                 </h3>
-                <p class="profile-title">Web Developer</p>
+                <p class="profile-title">Admin</p>
             </div>
         </div>
         <!-- USER INFO - END -->
@@ -67,10 +67,21 @@
         method: "get",
         url: "http://localhost:3000/admin/getAccount?_id=" + temp
     }).then((data) => {
-        console.log(data)
-        console.log(data.data.data.avatar)
-        document.getElementById("avatar").src = data.data.data[0].avatar
-        document.getElementById("avatar_").src = data.data.data[0].avatar
-        document.getElementById("name").innerHTML = data.data.data[1].FullName
+            document.getElementById("name").innerHTML = data.data.data.FullName
+       if(data.data.data.urlIamge)
+       {
+             document.getElementById("avatar").src = data.data.data.urlIamge
+             document.getElementById("avatar_").src = data.data.data.urlIamge
+       
+       } 
+       else{
+             document.getElementById("avatar").src ="https://image.flaticon.com/icons/png/512/147/147144.png"
+             document.getElementById("avatar_").src = "https://image.flaticon.com/icons/png/512/147/147144.png"
+       
+       }
+      
+       
+      
+      
     })
 </script>

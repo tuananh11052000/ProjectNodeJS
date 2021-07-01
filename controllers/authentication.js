@@ -34,7 +34,7 @@ module.exports = {
                     process.env.ACCESS_TOKEN_SECRET
                 );
                 res.cookie('token', accessToken, { maxAge: 900000, httpOnly: true });
-                console.log('cookie created successfully');
+                
                 return res.redirect("/");
             } else {
                 res.render('client/login', { status: "Sai mật khẩu !" })

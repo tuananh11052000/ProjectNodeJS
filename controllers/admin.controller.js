@@ -483,11 +483,13 @@ module.exports = {
     },
     findAccount: async (req, res, next) => {
         console.log("_________________________________________")
-        await Account.findOne({ _id: req.query._id }).then((data) => {
-            User.findOne({ AccountID: req.query._id }).then((data_) => {
+      
+        await Account.findOne({ _id: req.accountID}).then((data) => {
+            User.findOne({ AccountID: req.accountID}).then((data_) => {
+            
                 return res.status(200).json({
                     success: true,
-                    data: [data, data_]
+                    data:  data_
                 })
             })
 

@@ -24,8 +24,10 @@ module.exports = {
                     res.render('client/home', { status: ["", "", "Lỗi server"] });
                 }
                 else {
+
                     data_product = docs;
                     res.render('client/home', { title: 'Express', data: docs });
+
                 }
             })
 
@@ -84,8 +86,31 @@ module.exports = {
     },
 
     ProfileUser: async (req, res) => {
+        const id = req.accountID;
+        if (!id) {
+
+            res.redirect('client/login')
+        }
         try {
-            res.render('client/profile');
+             User.findOne({ 'AccountID': id }, function (err, data) {
+
+                if (!data) {
+                    res.render('client/profile', { status: ["", "", "Server Đang lỗi"] })
+                }
+                else {
+                   
+                    console.log(data)
+                    console.log(data._id)
+                    console.log(data.History)
+                    res.render('client/profile',
+                        {
+                            data_Profile: data,
+
+                        }
+                    );
+                }
+            })
+            //Lich su xem cua nguoi dung
         } catch (error) {
             res.status(500).json({
                 success: false,
@@ -102,7 +127,7 @@ module.exports = {
             NameAuthor,
             address,
         } = req.body;
-        console.log(req.body)
+
         try {
             if (!title) {
                 res.render('admin/post/error', { isOpen: ["", "", "", "open"] })
@@ -169,7 +194,7 @@ module.exports = {
         } catch (error) {
             res.render('admin/post/error', { isOpen: ["", "", "", "open"] })
         }
-        console.log(req.body)
+
     }
 }
 
