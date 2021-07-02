@@ -92,25 +92,31 @@ module.exports = {
             res.redirect('client/login')
         }
         try {
-             User.findOne({ 'AccountID': id }, function (err, data) {
+            const data = await User.findOne({ 'AccountID': id })
+            if (!data) {
+                throw new Error("serveral errors")
+            }
+            else {
 
-                if (!data) {
-                    res.render('client/profile', { status: ["", "", "Server Đang lỗi"] })
-                }
-                else {
-                   
-                    console.log(data)
-                    console.log(data._id)
-                    console.log(data.History)
-                    res.render('client/profile',
-                        {
-                            data_Profile: data,
+                //Lich su xem cua nguoi dung
+                post = [];
+                for (let i in data.History) {
+                    history = await Post.findOne({ '_id': data.History[i], confirm: true })
+                    if (history) {
+                        post.push(history)
+                    }
 
-                        }
-                    );
                 }
-            })
-            //Lich su xem cua nguoi dung
+                console.log(post)
+                res.render('client/profile',
+                    {
+                        data_Profile: data,
+                        data_History: post
+
+                    });
+            }
+
+
         } catch (error) {
             res.status(500).json({
                 success: false,
