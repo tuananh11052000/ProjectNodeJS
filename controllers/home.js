@@ -10,13 +10,18 @@ const { json } = require('express');
 var ObjectID = require('mongodb').ObjectID;
 const { findOne } = require('../Model/User');
 const Account = require('../Model/Account');
+const jwt = require('jsonwebtoken')
 
 let data_product
 
 module.exports = {
     getProduct: async (req, res) => {
-
+        let InfoUser;
         try {
+            const token = req.cookies['token']
+            const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+            req.accountID = decoded.accountID
+            InfoUser = await User.findOne({ 'AccountID': req.accountID })
             const SortTime = { createdAt: -1 };
             await Post.find({}).sort(SortTime).limit(12).exec(function (err, docs) {
                 if (err) {
@@ -26,7 +31,7 @@ module.exports = {
                 else {
 
                     data_product = docs;
-                    res.render('client/home', { title: 'Express', data: docs });
+                    res.render('client/home', { title: 'Express', data: docs, profileUser: InfoUser });
 
                 }
             })
@@ -86,13 +91,12 @@ module.exports = {
     },
 
     ProfileUser: async (req, res) => {
-        const id = req.accountID;
-        if (!id) {
 
-            res.redirect('client/login')
-        }
         try {
-            const data = await User.findOne({ 'AccountID': id })
+            const token = req.cookies['token']
+            const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+            req.accountID = decoded.accountID
+            const data = await User.findOne({ 'AccountID':  req.accountID  })
             if (!data) {
                 throw new Error("serveral errors")
             }
@@ -110,8 +114,9 @@ module.exports = {
                 console.log(post)
                 res.render('client/profile',
                     {
-                        data_Profile: data,
-                        data_History: post
+                        //data_Profile: data,
+                        data_History: post,
+                        profileUser:data
 
                     });
             }

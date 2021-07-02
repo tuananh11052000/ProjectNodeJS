@@ -23,15 +23,15 @@
                 <div class="col-xs-12 col-md-6 basic-infor">
                     <div class="avatar">
                     
-                    <% if(!data_Profile.urlIamge) { %>
+                    <% if(!profileUser.urlIamge) { %>
                         <img src="client/images/avatar.svg" alt="avatar">
                         <%} else {%>
-                        <img src="<%=data_Profile.urlIamge%>"alt="avatar">%>
+                        <img src="<%=profileUser.urlIamge%>"alt="avatar">%>
                       <%}%>  
                         
                     </div>
                     <div class="infor">
-                        <span class="name"><%= data_Profile.FullName %></span>
+                        <span class="name"><%= profileUser.FullName %></span>
                         <div class="follow row">
                             <div class="col-6"><a href="#"><b>99</b> Người theo dõi</a></div>
                             <div class="col-6"><a href="#"><b>99</b> Đang theo dõi</a></div>
@@ -41,7 +41,7 @@
                                 <i class="fas fa-map-marker-alt"></i> Chưa có thông tin
                             </p>
                             <p>
-                                <i class="fas fa-phone-alt"></i> <%="+84"+data_Profile.PhoneNumber %>
+                                <i class="fas fa-phone-alt"></i> <%="+84"+profileUser.PhoneNumber %>
                             </p>
                         </div>
                         <div class="edit-infor">
@@ -64,7 +64,7 @@
                             <div class="item-title"> &nbsp;Ngày tham gia:&nbsp;</div>
                            
                             <div class="item-infor"><%
-                            theDate = new Date( Date.parse(data_Profile.createdAt)) %>
+                            theDate = new Date( Date.parse(profileUser.createdAt)) %>
                             <%= theDate.toLocaleDateString() %></div>
                         </p>
                     </div>
