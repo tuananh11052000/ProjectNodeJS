@@ -50,22 +50,10 @@
     <!-- MAIN MENU - END -->
 </div>
 <script>
-    function readCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-        }
-        return null;
-    }
-    let temp = readCookie("accountID");
-    temp = unescape(temp).slice(3, -1);
-    console.log(temp)
+  
     axios({
         method: "get",
-        url: "http://localhost:3000/admin/getAccount?_id=" + temp
+        url: "http://localhost:3000/admin/getAccount?_id=" + ' '
     }).then((data) => {
             document.getElementById("name").innerHTML = data.data.data.FullName
        if(data.data.data.urlIamge)

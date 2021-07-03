@@ -54,11 +54,18 @@
          Smai
       </div>
       <div class="header-items">
-         <li><a href="./">Trang chủ</a></li>
-         <li> <a href="#">Tin đăng</a> </li>
+         <li><a href="/">Trang chủ</a></li>
+        
+         <li> <% if(profileUser) { %> 
+         <a href="/tindang"> 
+          <% } else { %>
+               <a href="/client/login">
+         <% } %>
+         
+              Tin đăng</a> </li>
+         
          <li><a href="#">Thông báo</a></li>
       </div>
-
       <div class="search-icon">
          <span class="fas fa-search"></span>
       </div>
@@ -69,20 +76,35 @@
          <input name="searchterm" type="search" class="search-data" placeholder="Search" required>
          <button type="submit" class="fas fa-search"></button>
       </form>
-
+     <% if(profileUser) { %>
       <div class="dropdown">
          <div class="header-user">
-            <li><a href="#"><i class="fas fa-user"></i></a></li>
-              <li><button type="button" class="btn-post" data-bs-toggle="modal" data-bs-target="#firstmyModal"><i
-                  class="far fa-edit"></i> Đăng tin</button></li>
+            <li>
+            <a href="#">
+            <% if(!profileUser.urlIamge) { %>
+            <i class="fas fa-user"></i>
+            <% } else {%>
+           <i class="fas fa-user"></i>
+           <% } %>
+            </a>
+            </li>
          </div>
          <div class="dropdown-content">
-            <a href="/client/logout" onclick="delete_cookie()">Đăng xuất</a>
-            <a href="#">Trang cá nhân</a>
+            <a href="/client/logout" >Đăng xuất</a>
+            <a href="/profile">Trang cá nhân</a>
          </div>
       </div>
+      <div><button type="button" class="btn-post" data-bs-toggle="modal" data-bs-target="#firstmyModal"><i
+                  class="far fa-edit"></i> Đăng tin</button></div>
+      <% }  else {%>
+        <div><button type="button" class="btn-post"><i
+                  class="far fa-edit"></i> <a href="/client/login" >Đăng nhập</a></button></div>
+      <%} %>
+      
    </div>
    <!-- end of header -->
+   
+
 
 
 

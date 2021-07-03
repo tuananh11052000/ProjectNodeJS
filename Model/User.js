@@ -23,8 +23,8 @@ var User = new mongoose.Schema({
         ref: 'Account'
     },
     urlIamge:{
-        type: String,
-     },
+       type: String,
+    },
     AccountID: {
         type: Schema.Types.ObjectId,
         ref: 'Account'
@@ -34,7 +34,8 @@ var User = new mongoose.Schema({
     },
     updateAt: {
         type: Schema.Types.Date
-    }
+    },
+    History:[]
 }, {
     collection: 'User',
     versionKey: false,
