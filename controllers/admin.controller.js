@@ -380,7 +380,6 @@ module.exports = {
     },
     removePost: async (req, res, next) => {
         let deletedPost = await Post.findOne({ _id: req.query._id });
-        console.log(req.query._id)
         if (!deletedPost)
             return res
                 .status(500)
@@ -388,6 +387,7 @@ module.exports = {
                     success: false,
                     message: "post you want to remove does not exist."
                 })
+
         deletedPost.urlImage.map(function (url) {
             //delete image
             //Tách chuỗi lấy id
@@ -397,6 +397,23 @@ module.exports = {
             //xóa ảnh
             cloudinary_detele.uploader.destroy(imageId);
         })
+
+        //remove Post in History
+        const UserHistory = await User.find({})
+        for(let i in UserHistory)
+        {
+            const UserInfor = await User.findOneAndUpdate(
+                {_id:UserHistory[i]._id},
+                {
+                    $pull:{
+                        History:  req.query._id 
+                    }
+                },
+                {
+                    new:true
+                }
+                )
+        }
         Post.remove({ _id: req.query._id }, function (error, object) {
             if (error) throw error;
             return res.status(200)
