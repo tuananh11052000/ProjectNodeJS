@@ -108,14 +108,10 @@
                   <a href="client/product-details.html" class="text-decoration-none">
                      <h5><%= product.title %></h5>
                   </a>
-                  <div class="rating">
-                     <i class="fas fa-star"></i>
-                     <i class="fas fa-star"></i>
-                     <i class="fas fa-star"></i>
-                     <i class="fas fa-star"></i>
-                     <i class="fas fa-star"></i>
-                  </div>
-                  <p class="price">100 000đ</p>
+                  <p class="price">
+                  <%let address = product.address.split(",");%>
+                  <%  element = address.slice(2); %>
+                  <%= element %></p>
                   </a>
                </div>
             </div>

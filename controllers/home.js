@@ -17,12 +17,29 @@ let data_product
 module.exports = {
     getProduct: async (req, res) => {
         let InfoUser;
+        let SortTime = { createdAt: -1 };
         try {
             const token = req.cookies['token']
+            if(!token)
+            {
+                await Post.find({}).sort(SortTime).limit(12).exec(function (err, docs) {
+                    if (err) {
+    
+                        res.render('client/home', { status: ["", "", "Lỗi server"] });
+                    }
+                    else {
+                        InfoUser = null;
+                        data_product = docs;
+                        res.render('client/home', { title: 'Express', data: docs, profileUser: InfoUser });
+    
+                    }
+                })
+            }
+            else
+            {
             const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
             req.accountID = decoded.accountID
             InfoUser = await User.findOne({ 'AccountID': req.accountID })
-            const SortTime = { createdAt: -1 };
             await Post.find({}).sort(SortTime).limit(12).exec(function (err, docs) {
                 if (err) {
 
@@ -35,6 +52,7 @@ module.exports = {
 
                 }
             })
+        }
 
         } catch (error) {
             res.status(500).json({
@@ -43,27 +61,100 @@ module.exports = {
             });
         }
     },
-    getDetail: async (req, res) => {
-        const idpost = req.query._id;
 
+    //xem thông tin chi tiết
+    getDetail: async (req, res) => {
+        //get id of post
+        const idpost = req.query._id;
+        let InfoUser;
         try {
             if (!idpost) {
                 throw new Error("No have Post in data")
             }
             else {
+                // get token from cookies
+                const token = req.cookies['token']
+                if(!token)
+                {
+                    //Don't have token server return null 
+                    InfoUser = null
+                }
+                else{
+                  
+                    let id_temp = idpost ;
+                 
+                    //Verify token change to account id if have token
+                    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+                    req.accountID = decoded.accountID
+                    //InforUser' User login 
+                    InfoUser = await User.findOne({ 'AccountID': req.accountID })
+                    //Post'User Login
+                    const PostUser = await Post.find({ 'AuthorID': req.accountID })
+                    //for loop
+                    for (let i in PostUser)
+                    {
+                       
+                        if (PostUser[i]._id == idpost) {
+                            //null
+                           id_temp = null; 
+                           break;//Out 
+                        }
+                    }
+                    for (let j in InfoUser.History) {
+                         if(InfoUser.History[j] == idpost)
+                         {
+                             id_temp = null;
+                             break;
+                         }
+                      
+                    }
+                    if(id_temp){
+                        User.updateOne({ _id: InfoUser._id },
+                            {
+                                $push: {
+                                    'History': id_temp
+                                }
+                            },
+                            {
+                                new: true, // trả về mới
+                            }, function (error, data) {
+                                if (error) {
+                                   
+                                    throw new Error(error)
+                                }
+                                else {
+                                    console.log("Oke")
+                                }
+                            }
+                        )
+                    }
+                   
+
+                }
+                //Declare variable phonenumber
                 var phoneNumber;
+                //Find data Post by idpost 
                 const data_post = await Post.findOne({ '_id': idpost })
+                // assign variable authorID with data_post.AuthorID
                 const authorID = data_post.AuthorID;
+                //find authorID of Post
                 const account = await User.findOne({ 'AccountID': authorID })
+
+                  
+
+                //if PhoneNumber null assign variable
                 if (account.PhoneNumber == null) {
                     phoneNumber = "null"
                 }
+                //Add +84 to string Phonenumber
                 phoneNumber = "+84" + account.PhoneNumber;
                 if (!data_post) {
+                    //error
                     throw new Error("No have Post in data")
                 }
                 else {
-                    res.render('client/product_details', { data: data_post, phone: phoneNumber });
+                    //render
+                    res.render('client/product_details', { data: data_post, phone: phoneNumber, profileUser: InfoUser});
                 }
             }
         } catch (error) {
@@ -77,11 +168,22 @@ module.exports = {
     },
     //get page search
     search: async (req, res) => {
+        let InfoUser;
         try {
+            const token = req.cookies['token']
+            if(!token)
+            {
+                InfoUser = null
+            }
+            else{
+                const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+                req.accountID = decoded.accountID
+                InfoUser = await User.findOne({ 'AccountID': req.accountID })
+            }
             const key = `"${req.query.searchterm}"`;
             const post = await Post.find({ $text: { $search: key } })
 
-            res.render('client/search', { data: post });
+            res.render('client/search', { data: post, profileUser: InfoUser});
         } catch (error) {
             res.status(500).json({
                 success: false,
@@ -111,7 +213,7 @@ module.exports = {
                     }
 
                 }
-                console.log(post)
+               
                 res.render('client/profile',
                     {
                         //data_Profile: data,

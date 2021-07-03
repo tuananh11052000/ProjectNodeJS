@@ -54,8 +54,16 @@
          Smai
       </div>
       <div class="header-items">
-         <li><a href="./">Trang chủ</a></li>
-         <li> <a href="#">Tin đăng</a> </li>
+         <li><a href="/">Trang chủ</a></li>
+        
+         <li> <% if(profileUser) { %> 
+         <a href="/tindang"> 
+          <% } else { %>
+               <a href="/client/login">
+         <% } %>
+         
+              Tin đăng</a> </li>
+         
          <li><a href="#">Thông báo</a></li>
       </div>
       <div class="search-icon">
@@ -82,7 +90,7 @@
             </li>
          </div>
          <div class="dropdown-content">
-            <a href="/client/logout" onclick="delete_cookie()">Đăng xuất</a>
+            <a href="/client/logout" >Đăng xuất</a>
             <a href="/profile">Trang cá nhân</a>
          </div>
       </div>
@@ -95,6 +103,8 @@
       
    </div>
    <!-- end of header -->
+   
+
 
 
 
