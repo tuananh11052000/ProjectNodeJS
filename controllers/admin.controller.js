@@ -49,13 +49,9 @@ module.exports = {
                 );
                 res.cookie('token', accessToken, { maxAge: 900000, httpOnly: true });
                 let id = account[0]._id
-                if (account[0].avatar) {
+                if (account[0]._id) {
                     res.cookie('accountID', account[0]._id, { maxAge: 900000, httpOnly: false });
                 }
-                else {
-                    res.cookie('avatar', "https://image.flaticon.com/icons/png/512/147/147144.png", { maxAge: 900000, httpOnly: false });
-                }
-
                 console.log('cookie created successfully');
                 return res.redirect("/admin/home");
             } else {
@@ -400,19 +396,18 @@ module.exports = {
 
         //remove Post in History
         const UserHistory = await User.find({})
-        for(let i in UserHistory)
-        {
+        for (let i in UserHistory) {
             const UserInfor = await User.findOneAndUpdate(
-                {_id:UserHistory[i]._id},
+                { _id: UserHistory[i]._id },
                 {
-                    $pull:{
-                        History:  req.query._id 
+                    $pull: {
+                        History: req.query._id
                     }
                 },
                 {
-                    new:true
+                    new: true
                 }
-                )
+            )
         }
         Post.remove({ _id: req.query._id }, function (error, object) {
             if (error) throw error;
@@ -500,14 +495,14 @@ module.exports = {
     },
     findAccount: async (req, res, next) => {
         console.log("_________________________________________")
-      
-        await Account.findOne({ _id: req.accountID}).then((data) => {
+
+        await Account.findOne({ _id: req.accountID }).then((data) => {
             console.log()
-            User.findOne({ AccountID: req.accountID}).then((data_) => {
-            
+            User.findOne({ AccountID: req.accountID }).then((data_) => {
+
                 return res.status(200).json({
                     success: true,
-                    data:  data_
+                    data: data_
                 })
             })
 

@@ -5,7 +5,7 @@
         <div class="profile-info row">
             <div class="profile-image col-xs-4">
                 <a href="ui-profile.html">
-                    <img  id="avatar_" class="img-responsive img-circle avatar">
+                    <img id="avatar_" class="img-responsive img-circle avatar">
                 </a>
             </div>
             <div class="profile-details col-xs-8">
@@ -50,26 +50,20 @@
     <!-- MAIN MENU - END -->
 </div>
 <script>
-  
+
     axios({
         method: "get",
         url: "http://localhost:3000/admin/getAccount?_id=" + ' '
     }).then((data) => {
-            document.getElementById("name").innerHTML = data.data.data.FullName
-       if(data.data.data.urlIamge)
-       {
-             document.getElementById("avatar").src = data.data.data.urlIamge
-             document.getElementById("avatar_").src = data.data.data.urlIamge
-       
-       } 
-       else{
-             document.getElementById("avatar").src ="https://image.flaticon.com/icons/png/512/147/147144.png"
-             document.getElementById("avatar_").src = "https://image.flaticon.com/icons/png/512/147/147144.png"
-       
-       }
-      
-       
-      
-      
+        console.log(data.data.data.urlImage)
+        document.getElementById("name").innerHTML = data.data.data.FullName
+        if (data.data.data.urlImage) {
+            document.getElementById("avatar").src = data.data.data.urlImage
+            document.getElementById("avatar_").src = data.data.data.urlImage
+        }
+        else {
+            document.getElementById("avatar").src = "https://image.flaticon.com/icons/png/512/147/147144.png"
+            document.getElementById("avatar_").src = "https://image.flaticon.com/icons/png/512/147/147144.png"
+        }
     })
 </script>
