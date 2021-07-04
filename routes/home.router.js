@@ -17,4 +17,8 @@ client.get('/profile', CORS, controller.ProfileUser)
 
 client.post('/create-post', verifyToken, fileUploader.array('productImage', 12), CORS, controller.postCreatePost)
 
+
+client.get('/chat', function(req, res, next) {
+    res.render('client/chat')
+   });
 module.exports = client;

@@ -16,7 +16,9 @@ let data_product
 
 module.exports = {
     getProduct: async (req, res) => {
+        //variable for Infomation User
         let InfoUser;
+        //Sort by time
         let SortTime = { createdAt: -1 };
         try {
             const token = req.cookies['token']
