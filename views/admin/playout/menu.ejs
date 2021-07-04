@@ -55,11 +55,11 @@
         method: "get",
         url: "http://localhost:3000/admin/getAccount?_id=" + ' '
     }).then((data) => {
-        console.log(data.data.data.urlImage)
+        console.log(data.data.data.urlIamge)
         document.getElementById("name").innerHTML = data.data.data.FullName
-        if (data.data.data.urlImage) {
-            document.getElementById("avatar").src = data.data.data.urlImage
-            document.getElementById("avatar_").src = data.data.data.urlImage
+        if (data.data.data.urlIamge) {
+            document.getElementById("avatar").src = data.data.data.urlIamge
+            document.getElementById("avatar_").src = data.data.data.urlIamge
         }
         else {
             document.getElementById("avatar").src = "https://image.flaticon.com/icons/png/512/147/147144.png"
