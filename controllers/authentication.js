@@ -33,7 +33,7 @@ module.exports = {
                     { accountID: account[0]._id },
                     process.env.ACCESS_TOKEN_SECRET
                 );
-                res.cookie('token', accessToken, { maxAge: 900000, httpOnly: true });
+                res.cookie('token', accessToken, {httpOnly: true });
                 
                 return res.redirect("/");
             } else {
@@ -76,7 +76,7 @@ module.exports = {
                     process.env.ACCESS_TOKEN_SECRET)
                 data.save(function (err) {
                     UserDetail.save(),
-                        res.cookie('token', accessToken, { maxAge: 900000, httpOnly: true });
+                        res.cookie('token', accessToken, {httpOnly: true });
                     return res.redirect("/");
                 });
             }

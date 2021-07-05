@@ -182,7 +182,7 @@ module.exports = {
                 req.accountID = decoded.accountID
                 InfoUser = await User.findOne({ 'AccountID': req.accountID })
             }
-            const key = `"${req.query.searchterm}"`;
+            const key = `"${req.query.searchterm}"`; //search key
             const post = await Post.find({ $text: { $search: key } })
 
             res.render('client/search', { data: post, profileUser: InfoUser});
@@ -310,6 +310,20 @@ module.exports = {
             res.render('admin/post/error', { isOpen: ["", "", "", "open"] })
         }
 
+    },
+    mypost:async(req,res)=>{
+        try {
+            const post = await Post.find({ 'AuthorID': req.accountID })
+            const InfoUser = await User.findOne({ 'AccountID': req.accountID })
+            console.log(post)
+            console.log(InfoUser)
+            res.render('client/mypost', { title: 'Express', data: post, profileUser: InfoUser });
+        }  catch (error) {
+            res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
     }
 }
 
