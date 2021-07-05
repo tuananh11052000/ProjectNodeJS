@@ -315,10 +315,19 @@ module.exports = {
         try {
             const post = await Post.find({ 'AuthorID': req.accountID })
             const InfoUser = await User.findOne({ 'AccountID': req.accountID })
-            console.log(post)
-            console.log(InfoUser)
             res.render('client/mypost', { title: 'Express', data: post, profileUser: InfoUser });
         }  catch (error) {
+            res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+    },
+    chatClient:async(req,res)=>{
+        try {
+            const InfoUser = await User.findOne({ 'AccountID': req.accountID })
+            res.render('client/chatlayout', { title: 'Express', profileUser: InfoUser });
+        } catch (error) {
             res.status(500).json({
                 success: false,
                 message: error.message
