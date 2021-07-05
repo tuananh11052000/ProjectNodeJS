@@ -47,10 +47,10 @@ module.exports = {
                     { accountID: account[0]._id },
                     process.env.ACCESS_TOKEN_SECRET
                 );
-                res.cookie('token', accessToken, { maxAge: 900000, httpOnly: true });
+                res.cookie('token', accessToken, {  httpOnly: true });
                 let id = account[0]._id
                 if (account[0]._id) {
-                    res.cookie('accountID', account[0]._id, { maxAge: 900000, httpOnly: false });
+                    res.cookie('accountID', account[0]._id, {httpOnly: false });
                 }
                 console.log('cookie created successfully');
                 return res.redirect("/admin/home");
