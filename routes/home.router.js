@@ -14,13 +14,9 @@ client.get('/search', CORS, controller.search)
 
 client.get('/profile', CORS, controller.ProfileUser)
 
-
 client.post('/create-post', verifyToken, fileUploader.array('productImage', 12), CORS, controller.postCreatePost)
 
 client.get('/my-post', verifyToken,CORS, controller.mypost)
 
-
-client.get('/chat', function(req, res, next) {
-    res.render('client/chat')
-   });
+client.get('/chat', verifyToken,CORS, controller.chatClient)
 module.exports = client;
