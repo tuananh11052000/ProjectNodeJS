@@ -166,7 +166,9 @@ ul{
    transition: all 300ms ease-in-out;
    z-index: 0 ;
 }
-
+.col-lg-3.col-md-4.col-sm-6.col-6.text-center.product-center {
+   cursor: pointer;
+}
 .product-header img {
    height: 100%;
 }
