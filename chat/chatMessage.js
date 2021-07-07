@@ -6,9 +6,9 @@ const formatMessage = (data) => {
         SenderIDUser:data.senderIDUser,
         ReceiverUser:data.receiverUser,
         ReceiverIDUser:data.receiverIDUser,
-        message:data.msg,
-        date: moment().format("YYYY-MM-DD"),
-        time: moment().format("hh:mm a")
+        Message:data.msg,
+        Date: moment().format("YYYY-MM-DD"),
+        Time: moment().format("hh:mm a")
     }
     return msg;
 }

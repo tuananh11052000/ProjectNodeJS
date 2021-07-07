@@ -120,32 +120,39 @@
    <script src="/socket.io/socket.io.js"></script>
    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-
+   var socket = io();
    let fromUser= "<%= profileUser.FullName %>";
-   let SendIDUser = "<%= profileUser._id %>";
+   let fromIDUser = "<%= profileUser._id %>";
    let toUser="<%= AuthorPost.FullName %>";
-   console.log(toUser)
-   let toID =" <%= AuthorPost._id %> ";
-       var socket = io();
-      function myFunction()
-      {
-        
+   let toIDUser ="<%= AuthorPost._id %>";
+  socket.emit('userDetails',{fromUser,fromIDUser,toUser,toIDUser}); //emits details of established chat//hiện chi tiết của tin nhắn đã được gửi
+
+  
+function myFunction()
+{ 
       var n= $('#mess').val(); 
       final = {
-        'senderIDUser':SendIDUser,
+        'senderIDUser':fromIDUser,
         'senderUser':fromUser,
-        'receiverIDUser':toID,
+        'receiverIDUser':toIDUser,
         'receiverUser':toUser,
         'msg':$('#mess').val()
     };
     socket.emit('chat message',final );
     $('#mess').val('');   
-      }
+}
 
-socket.on('chat message',(data) => { //recieves a message and displays it
-     outputMessage(data);
-   
-    //chatMessages.scrollTop=chatMessages.scrollHeight;
+socket.on('output',(data) => { //recieves the entire chat history upon logging in between two users and displays them//nhận toàn bộ lịch sử tin nhắn giữa hai người dùng và hiển thị chúng
+    for(var i=0; i<data.length;i++) {
+        outputMessage(data[i]);
+         console.log("His"+data[i])
+    }
+});
+
+socket.on('message',(data) => { //recieves a message and displays it//nhận và hiển thị tin nhắn 
+        console.log(data)
+        outputMessage(data);
+        
 });
 
 function outputMessage(message) {
@@ -153,28 +160,12 @@ function outputMessage(message) {
     div.classList.add('message');
     div.innerHTML= `
      <p>
-        ${message.message}
+        ${message.Message}
     </p> 
-    
-    <p class="meta">${message.SenderUser}<span> ${message.time}, ${message.date}</span></p>`;
-   
+    <p class="meta">${message.SenderUser}<span> ${message.Time}, ${message.Date}</span></p>`;
     document.querySelector('.message').appendChild(div);
 }
-      /*$(function () {
-         var socket = io();
-         $('form').submit(function(){
-           socket.emit('chat message', $('#mess').val());
-           $('#mess').val('');
-           return false;
-         });
-         socket.on('chat message', function(msg){
-           $('#messages').append($('<li>').text(msg));
-         });
-         socket.emit('new-user', name)
-          socket.on('user-connected', function(name){
-            appendMessage(`${name} connected`)
-          })
-       });*/
+     
     </script>
  </body>
 </html>
