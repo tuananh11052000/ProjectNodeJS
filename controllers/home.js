@@ -323,10 +323,16 @@ module.exports = {
             });
         }
     },
+    ///chat
     chatClient:async(req,res)=>{
         try {
+            const id = req.query.ID;
+            const post = await Post.findOne({_id:id})
+            const authorPost = await User.findOne({AccountID:post.AuthorID})
+          
+
             const InfoUser = await User.findOne({ 'AccountID': req.accountID })
-            res.render('client/chatlayout', { title: 'Express', profileUser: InfoUser });
+            res.render('client/chatlayout', { title: 'Express', profileUser: InfoUser, AuthorPost:authorPost  });
         } catch (error) {
             res.status(500).json({
                 success: false,
