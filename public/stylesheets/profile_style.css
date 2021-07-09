@@ -1,0 +1,18 @@
+body{padding-top:30px;}
+
+.glyphicon {  
+    margin-bottom: 10px;
+    margin-right: 10px;
+    font-size: 20px!important;
+}
+.location-profile{
+    font-size: 20px;
+}
+small {
+display: block;
+line-height: 1.428571429;
+color: #999;
+}
+.well{
+    width: 700px
+}

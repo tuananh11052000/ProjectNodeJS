@@ -47,10 +47,10 @@ module.exports = {
                     { accountID: account[0]._id },
                     process.env.ACCESS_TOKEN_SECRET
                 );
-                res.cookie('token', accessToken, {  httpOnly: true });
+                res.cookie('token', accessToken, { httpOnly: true });
                 let id = account[0]._id
                 if (account[0]._id) {
-                    res.cookie('accountID', account[0]._id, {httpOnly: false });
+                    res.cookie('accountID', account[0]._id, { httpOnly: false });
                 }
                 console.log('cookie created successfully');
                 return res.redirect("/admin/home");
@@ -494,8 +494,6 @@ module.exports = {
         }
     },
     findAccount: async (req, res, next) => {
-        console.log("_________________________________________")
-
         await Account.findOne({ _id: req.accountID }).then((data) => {
             console.log()
             User.findOne({ AccountID: req.accountID }).then((data_) => {
@@ -506,6 +504,15 @@ module.exports = {
                 })
             })
 
+        })
+    },
+    profile: async (req, res, next) => {
+        await User.findOne({ AccountID: req.accountID }).then(async (data) => {
+            await Account.findOne({ _id: req.AccountID }).then(data_ => {
+                console.log("____")
+                console.log(data)
+                res.render('admin/profile/profile', { isOpen: ["", "", "", ""], account: data_, user: data })
+            })
         })
     }
 }
