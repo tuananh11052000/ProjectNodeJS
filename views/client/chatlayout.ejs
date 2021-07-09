@@ -67,26 +67,16 @@
                 </div>
               </div>
             </div>
-          
-           
-        
-          
           </div>
         </div>
+        <!--content chat -->
         <div class="mesgs">
           <div class="msg_history">
             <div class="incoming_msg">
-            <!--  <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div> 
-              <div class="received_msg chat-messages">
-                <div class="received_withd_msg  message" id="messages">
-                </div>
-              </div> -->
             </div>
-          <!--<div class="outgoing_msg">
-              <div class="sent_msg">
-            </div> 
-          </div>-->
           </div>
+
+          <!--button chat-->
           <div class="type_msg">
             <div class="input_msg_write">
               <input  id="mess"  type="text" class="write_msg" placeholder="Type a message" />
@@ -104,84 +94,88 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+     <script src="/socket.io/socket.io.js"></script>
    <script src="client/js/script.js"></script>
    <script type="text/javascript" src="client/js/main.js"></script>
    <script src="/socket.io/socket.io.js"></script>
    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
-   var socket = io();
-   let fromUser= "<%= profileUser.FullName %>";
-   let fromIDUser = "<%= profileUser._id %>";
-   let toUser="<%= AuthorPost.FullName %>";
-   let toIDUser ="<%= AuthorPost._id %>";
-  socket.emit('userDetails',{fromUser,fromIDUser,toUser,toIDUser}); //emits details of established chat//hiện chi tiết của tin nhắn đã được gửi
-
   
+  <script>
+
+  let chatMessages = document.querySelector('.msg_history');
+var socket = io();
+let fromUser= "<%= profileUser.FullName %>";
+let fromIDUser = "<%= profileUser._id %>";
+let toUser="<%= AuthorPost.FullName %>";
+let toIDUser ="<%= AuthorPost._id %>";
+socket.emit('userDetails',{fromUser,fromIDUser,toUser,toIDUser}); //emits details of established chat//hiện chi tiết của tin nhắn đã được gửi
+
+
 function myFunction()
 { 
-      var n= $('#mess').val(); 
-      final = {
-        'senderIDUser':fromIDUser,
-        'senderUser':fromUser,
-        'receiverIDUser':toIDUser,
-        'receiverUser':toUser,
-        'msg':$('#mess').val()
-    };
-    socket.emit('chat message',final );
-    $('#mess').val('');   
+   var n= $('#mess').val(); 
+   final = {
+     'senderIDUser':fromIDUser,
+     'senderUser':fromUser,
+     'receiverIDUser':toIDUser,
+     'receiverUser':toUser,
+     'msg':$('#mess').val()
+ };
+ socket.emit('chat message',final );
+ $('#mess').val('');   
 }
 
 socket.on('output',(data) => { //recieves the entire chat history upon logging in between two users and displays them//nhận toàn bộ lịch sử tin nhắn giữa hai người dùng và hiển thị chúng
-    for(var i=0; i<data.length;i++) {
-        outputMessage(data[i]);
-       
-    }
+ for(var i=0; i<data.length;i++) {
+     outputMessage(data[i]);
+    
+ }
+ chatMessages.scrollTop=chatMessages.scrollHeight;
+
 });
 
 socket.on('message',(data) => { //recieves a message and displays it//nhận và hiển thị tin nhắn 
-        outputMessage(data);
-        
-});
-/* <p>Test which is a new approach to have all
-                    solutions</p>
-                  <span class="time_date"> 11:01 AM    |    June 9</span> */
-function outputMessage(message) {
-    const div = document.createElement('div');
-    if(message.SenderUser == fromUser)
-    {
-    div.classList.add('message');
-    div.innerHTML= `
+     outputMessage(data);
+    chatMessages.scrollTop=chatMessages.scrollHeight;
 
-     <div class="outgoing_msg">
-      <div class="sent_msg">
-     <p>
-        ${message.Message}
-    </p> 
-    <span class="time_date"> ${message.Time} | ${message.Date}</span>
-      </div> 
-         </div>`;
-     document.querySelector('.msg_history').appendChild(div);
-    }
-    else{
-    div.classList.add('message');
-    div.innerHTML= `
-    <div class="incoming_msg_img">
-    <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div> 
-    <div class="received_msg chat-messages">
-    <div class="received_withd_msg  message" id="messages">
-     <p>
-        ${message.Message}
-    </p> 
-    <span class="time_date"> ${message.Time} | ${message.Date}</span>
-    </div>
-    </div>
-    </div>
-    `;
-      document.querySelector('.msg_history').appendChild(div);
-    }
-   
-}
      
-    </script>
+});
+function outputMessage(message) {
+ const div = document.createElement('div');
+ if(message.SenderUser == fromUser)
+ {
+ div.classList.add('message');
+ div.innerHTML= `
+
+  <div class="outgoing_msg">
+   <div class="sent_msg">
+  <p>
+     ${message.Message}
+ </p> 
+ <span class="time_date"> ${message.Time} | ${message.Date}</span>
+   </div> 
+      </div>`;
+  document.querySelector('.msg_history').appendChild(div);
+ }
+ else{
+ div.classList.add('message');
+ div.innerHTML= `
+ <div class="incoming_msg_img">
+ <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div> 
+ <div class="received_msg chat-messages">
+ <div class="received_withd_msg  message" id="messages">
+  <p>
+     ${message.Message}
+ </p> 
+ <span class="time_date"> ${message.Time} | ${message.Date}</span>
+ </div>
+ </div>
+ </div>
+ `;
+   document.querySelector('.msg_history').appendChild(div);
+ }
+}
+
+  </script>
  </body>
 </html>
