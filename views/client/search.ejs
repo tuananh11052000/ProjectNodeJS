@@ -68,30 +68,25 @@
       <div class="container-fluid p-1 wrap-post">
          <div class="row">
             <% data.map(function(product) { %>
-                 <div   class="col-lg-3 col-md-4 col-sm-6 col-6 text-center product-center">
-               <div   class="product border-0 bg-light mb-2">
-               <a  onclick="viewPost('<%= product._id%>')" >
-                  <div class="product-header">
-                     <img src='<%= product.urlImage[0] %>' class="img-fluid" alt="">
-                    <!-- <ul class="icons">
-                        <span><i class="far fa-heart"></i></span>
-                        <span><i class="fas fa-shopping-cart"></i></span>
-                        <span><i class="fas fa-search"></i></span>
-                     </ul> -->
+               <div class="col-lg-3 col-md-4 col-sm-6 col-6 product-center">
+                  <div class="wrap-card card border-light mb-3 p-0" style="border: none;">
+                     <!-- add -->
+                     <a onclick="viewPost('<%= product._id%>')"></a> 
+                     <!-- add -->
+                   <img class="card-img-top card-header p-0" src="<%= product.urlImage[0] %>" alt="items">
+                   <div class="card-body">
+                     <a href="#" onclick="viewPost('<%= product._id%>')" class="text-decoration-none card-title">
+                        <h5><%= product.title %></h5>
+                     </a>
+                     <!-- <h5 class="card-title"><a href="client/product-details.html"><%= product.title %></a></h5> -->
+                     <p class="card-text">
+                        <%let address=product.address.split(",");%>
+                        <% element=address.slice(2); %>
+                        <%= element %> 
+                     </p>
+                   </div>
                   </div>
                </div>
-               <div class="product-footer">
-                  <a href="client/product-details.html" class="text-decoration-none">
-                     <h5><%= product.title %></h5>
-                  </a>
-               
-                    <p class="price">
-                  <%let address = product.address.split(",");%>
-                  <%  element = address.slice(2); %>
-                  <%= element %></p>
-                  </a>
-               </div>
-            </div>
        <%  }) %>
          </div>
       </div> 
