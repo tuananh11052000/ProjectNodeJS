@@ -76,6 +76,7 @@
          <input name="searchterm" type="search" class="search-data" placeholder="Search" required>
          <button type="submit" class="fas fa-search"></button>
       </form>
+      
      <% if(profileUser) { %>
       <div class="dropdown">
          <div class="header-user">
@@ -97,8 +98,8 @@
       <div><button type="button" class="btn-post" data-bs-toggle="modal" data-bs-target="#firstmyModal"><i
                   class="far fa-edit"></i> Đăng tin</button></div>
       <% }  else {%>
-        <div><button type="button" class="btn-post"><i
-                  class="far fa-edit"></i> <a href="/client/login" >Đăng nhập</a></button></div>
+        <div><button type="button" class="btn-login"><i
+                  class="far fa-edit"></i><a href="/client/login"> Đăng nhập</a></button></div>
       <%} %>
       
    </div>

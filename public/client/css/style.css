@@ -110,7 +110,7 @@ body {
     text-decoration: none;
 }
 
-.header .header-user button {
+.btn-post {
     height: 34px;
     text-align: center;
     text-transform: uppercase;
@@ -128,8 +128,39 @@ body {
     text-decoration: none;
 }
 
-.header .header-user button:hover {
+.btn-post:hover {
     opacity: 0.8;
+}
+
+.btn-login {
+    height: 34px;
+    text-align: center;
+    text-transform: uppercase;
+    background: #ff5733;
+    color: #fff;
+    font-size: 15px;
+    font-stretch: normal;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 0.33;
+    letter-spacing: normal;
+    border-radius: 4px;
+    border: none;
+    padding: 9.5px 20px;
+    margin-left: 1rem;
+    text-decoration: none;
+}
+
+.btn-login:hover {
+    opacity: 0.8;
+}
+.btn-login a {
+    color: #fff;
+    text-decoration: none;
+}
+.btn-login a:hover{
+    color: #fff;
+    text-decoration: none;
 }
 
 .header .header-items li a:hover,
@@ -137,9 +168,6 @@ body {
     opacity: 0.9;
     color: #ff5733;
     font-weight: 600;
-    /* padding: 0.5rem 0.5rem;
-  border-radius: 4px;
-  background: #323c4e; */
 }
 
 .header .header-user {
