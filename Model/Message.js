@@ -24,7 +24,12 @@ const Message = new mongoose.Schema({
     },
     Time:{
         type:String
-    }
+    },
+    expireAt: {
+        type: Date,
+        default: Date.now,
+        expireAfterSeconds: '2m' , // giới hạn thời gian 3 months
+      },
 }, {
     collection: 'Message',
     versionKey: false,

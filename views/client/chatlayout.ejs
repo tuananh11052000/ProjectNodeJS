@@ -76,27 +76,16 @@
         <div class="mesgs">
           <div class="msg_history">
             <div class="incoming_msg">
-            <!--  <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div> -->
+            <!--  <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div> 
               <div class="received_msg chat-messages">
                 <div class="received_withd_msg  message" id="messages">
-                 <!-- <p>Test which is a new approach to have all
-                    solutions</p>
-                  <span class="time_date"> 11:01 AM    |    June 9</span> -->
                 </div>
-              </div>
+              </div> -->
             </div>
-
-
-            <!--<div class="outgoing_msg">
+          <!--<div class="outgoing_msg">
               <div class="sent_msg">
-                <p>Test which is a new approach to have all
-                  solutions</p>
-                <span class="time_date"> 11:01 AM    |    June 9</span> </div>
-            </div> -->
-           
-           
-          
-             
+            </div> 
+          </div>-->
           </div>
           <div class="type_msg">
             <div class="input_msg_write">
@@ -145,25 +134,52 @@ function myFunction()
 socket.on('output',(data) => { //recieves the entire chat history upon logging in between two users and displays them//nhận toàn bộ lịch sử tin nhắn giữa hai người dùng và hiển thị chúng
     for(var i=0; i<data.length;i++) {
         outputMessage(data[i]);
-         console.log("His"+data[i])
+       
     }
 });
 
 socket.on('message',(data) => { //recieves a message and displays it//nhận và hiển thị tin nhắn 
-        console.log(data)
         outputMessage(data);
         
 });
-
+/* <p>Test which is a new approach to have all
+                    solutions</p>
+                  <span class="time_date"> 11:01 AM    |    June 9</span> */
 function outputMessage(message) {
     const div = document.createElement('div');
+    if(message.SenderUser == fromUser)
+    {
     div.classList.add('message');
     div.innerHTML= `
+
+     <div class="outgoing_msg">
+      <div class="sent_msg">
      <p>
         ${message.Message}
     </p> 
-    <p class="meta">${message.SenderUser}<span> ${message.Time}, ${message.Date}</span></p>`;
-    document.querySelector('.message').appendChild(div);
+    <span class="time_date"> ${message.Time} | ${message.Date}</span>
+      </div> 
+         </div>`;
+     document.querySelector('.msg_history').appendChild(div);
+    }
+    else{
+    div.classList.add('message');
+    div.innerHTML= `
+    <div class="incoming_msg_img">
+    <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div> 
+    <div class="received_msg chat-messages">
+    <div class="received_withd_msg  message" id="messages">
+     <p>
+        ${message.Message}
+    </p> 
+    <span class="time_date"> ${message.Time} | ${message.Date}</span>
+    </div>
+    </div>
+    </div>
+    `;
+      document.querySelector('.msg_history').appendChild(div);
+    }
+   
 }
      
     </script>
