@@ -49,7 +49,8 @@ module.exports = {
       });
       socket.on('disconnect', () => {
         var myquery = { "SenderIDUser": FromID };
-        OnlineUser.remove(myquery, function (err, res) { //if a user has disconnected, he/she is removed from the online users' collection//nếu một người dùng ngắt kết nối, anh ấy/cô ấy sẽ bị đưa ra khỏi danh sách những người dùng đang hoạt động
+        socket.disconnect()
+        OnlineUser.deleteOne(myquery, function (err, res) { //if a user has disconnected, he/she is removed from the online users' collection//nếu một người dùng ngắt kết nối, anh ấy/cô ấy sẽ bị đưa ra khỏi danh sách những người dùng đang hoạt động
           if (err) throw err;
         });
       });

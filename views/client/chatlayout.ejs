@@ -37,7 +37,19 @@
             </div>
           </div>
           <div class="inbox_chat">
-            <div class="chat_list active_chat">
+
+           <% for( let i in CarePost) { %>
+            <div id="btn-chat" onclick="location.href='http://localhost:3000/chat?ID=<%= CarePost[i]._id %>';" class="chat_list active_chat">
+              <div class="chat_people">
+                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5><%= CarePost[i].NameAuthor %> <span class="chat_date">Dec 25</span></h5>
+                  <p><%= CarePost[i].title %></p>
+                </div>
+              </div>
+            </div>
+            <% } %>
+         <!--  <div class="chat_list">
               <div class="chat_people">
                 <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                 <div class="chat_ib">
@@ -46,27 +58,8 @@
                     astrology under one roof.</p>
                 </div>
               </div>
-            </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions 
-                    astrology under one roof.</p>
-                </div>
-              </div>
-            </div>
-            <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions 
-                    astrology under one roof.</p>
-                </div>
-              </div>
-            </div>
+            </div> -->
+          
           </div>
         </div>
         <!--content chat -->
@@ -102,13 +95,16 @@
   
   <script>
 
-  let chatMessages = document.querySelector('.msg_history');
+let chatMessages = document.querySelector('.msg_history');
 var socket = io();
 let fromUser= "<%= profileUser.FullName %>";
 let fromIDUser = "<%= profileUser._id %>";
 let toUser="<%= AuthorPost.FullName %>";
 let toIDUser ="<%= AuthorPost._id %>";
-socket.emit('userDetails',{fromUser,fromIDUser,toUser,toIDUser}); //emits details of established chat//hiện chi tiết của tin nhắn đã được gửi
+socket.emit('userDetails',{fromUser,fromIDUser,toUser,toIDUser});
+
+
+ //emits details of established chat//hiện chi tiết của tin nhắn đã được gửi
 
 
 function myFunction()
@@ -177,5 +173,7 @@ function outputMessage(message) {
 }
 
   </script>
+
+ 
  </body>
 </html>
