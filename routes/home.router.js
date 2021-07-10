@@ -20,6 +20,6 @@ client.get('/my-post', verifyToken,CORS, controller.mypost)
 
 client.get('/chat', verifyToken,CORS, controller.chatClient)
 
-client.get('/category', CORS, controller.category)
+// client.get('/category', CORS, controller.category)
 
 module.exports = client;
