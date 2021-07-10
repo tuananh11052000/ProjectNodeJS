@@ -168,7 +168,8 @@ module.exports = {
 
 
     },
-    //get page search
+    
+    // get page search
     search: async (req, res) => {
         let InfoUser;
         try {
@@ -193,6 +194,8 @@ module.exports = {
             });
         }
     },
+
+    
 
     ProfileUser: async (req, res) => {
 
@@ -340,5 +343,7 @@ module.exports = {
             });
         }
     }
+    
+    
 }
 

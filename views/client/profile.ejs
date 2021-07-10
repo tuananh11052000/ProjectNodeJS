@@ -13,7 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
- <% include ./layout/menu.ejs %>
+<% include ./layout/menu.ejs %>
     <!-- end of header -->
 
     <!-- content ---------------------------------------->
@@ -22,16 +22,18 @@
             <div class="row">
                 <div class="col-xs-12 col-md-6 basic-infor">
                     <div class="avatar">
-                    
-                    <% if(!profileUser.urlIamge) { %>
-                        <img src="client/images/avatar.svg" alt="avatar">
-                        <%} else {%>
-                        <img src="<%=profileUser.urlIamge%>"alt="avatar">%>
-                      <%}%>  
-                        
+
+                        <% if(!profileUser.urlIamge) { %>
+                            <img src="client/images/avatar.svg" alt="avatar">
+                            <%} else {%>
+                                <img src="<%=profileUser.urlIamge%>" alt="avatar">%>
+                                <%}%>
+
                     </div>
                     <div class="infor">
-                        <span class="name"><%= profileUser.FullName %></span>
+                        <span class="name">
+                            <%= profileUser.FullName %>
+                        </span>
                         <div class="follow row">
                             <div class="col-6"><a href="#"><b>99</b> Người theo dõi</a></div>
                             <div class="col-6"><a href="#"><b>99</b> Đang theo dõi</a></div>
@@ -41,7 +43,8 @@
                                 <i class="fas fa-map-marker-alt"></i> Chưa có thông tin
                             </p>
                             <p>
-                                <i class="fas fa-phone-alt"></i> <%="+84"+profileUser.PhoneNumber %>
+                                <i class="fas fa-phone-alt"></i>
+                                <%="+84"+profileUser.PhoneNumber %>
                             </p>
                         </div>
                         <div class="edit-infor">
@@ -54,32 +57,33 @@
                     <div class="itemRow">
                         <p>
                             <i class="far fa-star"></i>
-                            <div class="item-title"> &nbsp;Đánh giá:&nbsp;</div>
-                            <div class="item-infor">Chưa có đánh giá</div>
+                        <div class="item-title"> &nbsp;Đánh giá:&nbsp;</div>
+                        <div class="item-infor">Chưa có đánh giá</div>
                         </p>
                     </div>
                     <div class="itemRow">
                         <p>
                             <i class="far fa-calendar-alt"></i>
-                            <div class="item-title"> &nbsp;Ngày tham gia:&nbsp;</div>
-                           
-                            <div class="item-infor"><%
-                            theDate = new Date( Date.parse(profileUser.createdAt)) %>
-                            <%= theDate.toLocaleDateString() %></div>
+                        <div class="item-title"> &nbsp;Ngày tham gia:&nbsp;</div>
+
+                        <div class="item-infor">
+                            <% theDate=new Date( Date.parse(profileUser.createdAt)) %>
+                                <%= theDate.toLocaleDateString() %>
+                        </div>
                         </p>
                     </div>
                     <div class="itemRow">
                         <p>
                             <i class="far fa-comments"></i>
-                            <div class="item-title"> &nbsp;Tỉ lệ phản hồi:&nbsp;</div>
-                            <div class="item-infor">Chưa có thông tin</div>
+                        <div class="item-title"> &nbsp;Tỉ lệ phản hồi:&nbsp;</div>
+                        <div class="item-infor">Chưa có thông tin</div>
                         </p>
                     </div>
                     <div class="itemRow">
                         <p>
                             <i class="far fa-check-circle"></i>
-                            <div class="item-title"> &nbsp;Số lần giao dịch:&nbsp;</div>
-                            <div class="item-infor">Chưa có thông tin</div>
+                        <div class="item-title"> &nbsp;Số lần giao dịch:&nbsp;</div>
+                        <div class="item-infor">Chưa có thông tin</div>
                         </p>
                     </div>
                 </div>
@@ -92,63 +96,62 @@
                     <h4>Lịch sử xem</h4>
                 </div>
             </div>
-         <div class="row">
-         <% data_History.map(function(product) { %>
-                 <div   class="col-lg-3 col-md-4 col-sm-6 col-6 text-center product-center">
-               <div   class="product border-0 bg-light mb-2">
-               <a  onclick="viewPost('<%= product._id%>')" >
-                  <div class="product-header">
-                     <img src='<%= product.urlImage[0] %>' class="img-fluid" alt="">
-                    <!-- <ul class="icons">
-                        <span><i class="far fa-heart"></i></span>
-                        <span><i class="fas fa-shopping-cart"></i></span>
-                        <span><i class="fas fa-search"></i></span>
-                     </ul> -->
-                  </div>
-               </div>
-              <div class="product-footer">
-                  <a href="client/product-details.html" class="text-decoration-none">
-                     <h5><%= product.title %></h5>
-                  </a>
-               
-                    <p class="price">
-                  <%let address = product.address.split(",");%>
-                  <%  element = address.slice(2); %>
-                  <%= element %></p>
-                  </a>
-               </div>
+            <div class="row card-deck">
+                <% data_History.map(function(product) { %>
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-6 product-center">
+                        <div class="wrap-card card border-light mb-3 p-0" style="border: none;">
+                            <!-- add -->
+                            <a onclick="viewPost('<%= product._id%>')"></a>
+                            <!-- add -->
+                            <img class="card-img-top card-header p-0" src="<%= product.urlImage[0] %>" alt="items">
+                            <div class="card-body">
+                                <a href="#" onclick="viewPost('<%= product._id%>')"
+                                    class="text-decoration-none card-title">
+                                    <h5>
+                                        <%= product.title %>
+                                    </h5>
+                                </a>
+                                <!-- <h5 class="card-title"><a href="client/product-details.html"><%= product.title %></a></h5> -->
+                                <p class="card-text">
+                                    <%let address=product.address.split(",");%>
+                                        <% element=address.slice(2); %>
+                                            <%= element %>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
             </div>
-       <%  }) %>
-         </div>
-      </div> 
-   </div>
+        </div>
+    </div>
     <!-- end of content --------------------------------->
     <!-- footer -->
     <!-- end of content --------------------------------->
 
-   <!-- footer -->
-  <% include ./layout/footer.ejs %>
-   <!-- end of footer -->
+    <!-- footer -->
+    <% include ./layout/footer.ejs %>
+        <!-- end of footer -->
 
-   <!-- Create post -->
-     <% include ./create_post.ejs %>
-   <!-- End of Create post -->
+        <!-- Create post -->
+        <% include ./create_post.ejs %>
+            <!-- End of Create post -->
 
-    <!-- end of footer -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+            <!-- end of footer -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+            <script type="text/javascript"
+                src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
-    <script src="client/js/script.js"></script>
-    <script type="text/javascript" src="client/js/main.js"></script>
-</body>
+            <script src="client/js/script.js"></script>
+            <script type="text/javascript" src="client/js/main.js"></script>
+            </body>
 
 </html>
-            <script>  
-                    function viewPost(id) {
-                        let url = `view-post?_id=${id}`
-                        location.href = url
-                    }
-                   
-      </script>
+<script>
+    function viewPost(id) {
+        let url = `view-post?_id=${id}`
+        location.href = url
+    }
+
+</script>
