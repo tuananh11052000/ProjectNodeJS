@@ -130,6 +130,13 @@ ul{
    background-color: white;
    border: 1px solid #e5e5e5;
 }
+.category-title {
+   text-decoration: none;
+   color: #12263a;
+}
+.category-title:hover {
+   color: #000;
+}
 
 /* product */
 .wrap-post {
