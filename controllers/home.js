@@ -48,7 +48,7 @@ module.exports = {
                     res.render('client/home', { status: ["", "", "Lỗi server"] });
                 }
                 else {
-
+                    
                     data_product = docs;
                     res.render('client/home', { title: 'Express', data: docs, profileUser: InfoUser });
 
@@ -188,6 +188,33 @@ module.exports = {
 
             res.render('client/search', { data: post, profileUser: InfoUser});
         } catch (error) {
+            res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+    },
+
+    //get page category
+    category: async (req, res) => {
+        if (req.query.TypeAuthor == 'tangcongdong') {
+            typeauthor = 'tangcongdong'
+          }
+          if (req.query.TypeAuthor == 'canhan') {
+            typeauthor = 'Cá nhân'
+          }
+          if (req.query.TypeAuthor == 'quy') {
+            typeauthor = 'Quỹ/Nhóm từ thiện'
+          }
+          if (req.query.TypeAuthor == 'tochuc') {
+            typeauthor = 'Tổ chức công ích'
+          }
+        try {
+            const post = await Post.find({ 'TypeAuthor': typeauthor })
+            const InfoUser = await User.findOne({ 'AccountID': req.accountID })
+            res.render('client/category', { title: 'Express', data: post, profileUser: InfoUser });
+        } 
+        catch (error) {
             res.status(500).json({
                 success: false,
                 message: error.message
