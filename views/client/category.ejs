@@ -34,12 +34,10 @@
                <div class="box-filter col-lg-3 col-md-4 col-sm-6 col-12">
                   <label for="select-catagory">Danh mục: </label><br>
                   <select name="catagory" id="select-catagory">
-                     <option value="cata-1">Tặng miễn phí</option>
-                     <option value="cata-2">Quần áo</option>
-                     <option value="cata-3">Học tập</option>
-                     <option value="cata-4">Đồ điện tử</option>
-                     <option value="cata-5">Xe cộ</option>
-                     <option value="cata-6">Thực phẩm</option>
+                     <option value="cata-1">Tặng cộng đồng</option>
+                     <option value="cata-2">Qũy/nhóm từ thiện</option>
+                     <option value="cata-3">Cá nhân</option>
+                     <option value="cata-4">Tổ chức công ích</option>
                   </select>
                </div>
                <div class="box-filter col-lg-3 col-md-4 col-sm-6 col-12">
@@ -53,13 +51,13 @@
                      <option value="na">Nghệ An</option>
                   </select>
                </div>
-               <div class="box-filter col-lg-3 col-md-4 col-sm-6 col-12">
+               <!-- <div class="box-filter col-lg-3 col-md-4 col-sm-6 col-12">
                   <label for="filter-sort">Sắp xếp theo: </label><br>
                   <select name="sort-product" id="filter-sort">
                      <option value="price-up">Giá thấp trước</option>
                      <option value="post">Tin mới trước</option>
                   </select>
-               </div>
+               </div> -->
             </div>
          </div>
       </div>
@@ -80,7 +78,6 @@
                               <%= product.title %>
                            </h5>
                         </a>
-                        <!-- <h5 class="card-title"><a href="client/product-details.html"><%= product.title %></a></h5> -->
                         <p class="card-text">
                            <%let address=product.address.split(",");%>
                               <% element=address.slice(2); %>
