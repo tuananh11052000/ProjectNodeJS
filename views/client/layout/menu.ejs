@@ -61,10 +61,19 @@
           <% } else { %>
                <a href="/client/login">
          <% } %>
-         
               Tin đăng</a> </li>
-         
-         <li><a href="#">Thông báo</a></li>
+         <li> <% if(profileUser) { %> 
+         <a href="#"> 
+          <% } else { %>
+               <a href="/client/login">
+         <% } %>
+             Thông báo</a> </li>
+         <li> <% if(profileUser) { %> 
+         <a href="#"> 
+          <% } else { %>
+               <a href="/client/login">
+         <% } %>
+              Tin nhắn</a> </li>
       </div>
       <div class="search-icon">
          <span class="fas fa-search"></span>
