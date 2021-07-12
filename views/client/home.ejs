@@ -53,19 +53,20 @@
             <div class="row slider-two text-center">
                <div class="col-md-2 catagory pt-md-2">
                   <img src="client/images/category/community.jpg" class="img-fluid" alt="catagory 1">
-                  <span class="border site-btn btn-span">Tặng miễn phí</span>
+                  <span class="border site-btn btn-span"><a class="category-title" href="http://localhost:3000/category?TypeAuthor=tangcongdong">Tặng cộng
+                        đồng</a></span>
                </div>
                <div class="col-md-2 catagory pt-md-2">
                   <img src="client/images/category/clothes.jpg" class="img-fluid" alt="catagory 1">
-                  <span class="border site-btn btn-span">Quần áo</span>
+                  <span class="border site-btn btn-span"><a class="category-title" href="http://localhost:3000/category?TypeAuthor=quy">Quỹ/Nhóm từ thiện</a></span>
                </div>
                <div class="col-md-2 catagory pt-md-2">
                   <img src="client/images/category/book.jpg" class="img-fluid" alt="catagory 1">
-                  <span class="border site-btn btn-span">Học tập</span>
+                  <span class="border site-btn btn-span"><a class="category-title" href="http://localhost:3000/category?TypeAuthor=tochuc">Tổ chức công ích</a></span>
                </div>
                <div class="col-md-2 catagory pt-md-2">
                   <img src="client/images/category/electronics.jpg" class="img-fluid" alt="catagory 1">
-                  <span class="border site-btn btn-span">Đồ điện tử</span>
+                  <span class="border site-btn btn-span"><a class="category-title" href="http://localhost:3000/category?TypeAuthor=canhan">Cá nhân</a></span>
                </div>
                <div class="col-md-2 catagory pt-md-2">
                   <img src="client/images/category/vehicle.jpg" class="img-fluid" alt="catagory 1">
@@ -95,19 +96,21 @@
                <div class="col-lg-3 col-md-4 col-sm-6 col-6 product-center">
                   <div class="wrap-card card border-light mb-3 p-0" style="border: none;">
                      <!-- add -->
-                     <a onclick="viewPost('<%= product._id%>')"></a> 
+                     <a onclick="viewPost('<%= product._id%>')"></a>
                      <!-- add -->
-                   <img class="card-img-top card-header p-0" src="<%= product.urlImage[0] %>" alt="items">
-                   <div class="card-body">
-                     <a href="#" onclick="viewPost('<%= product._id%>')" class="text-decoration-none card-title">
-                        <h5><%= product.title %></h5>
-                     </a>
-                     <!-- <h5 class="card-title"><a href="client/product-details.html"><%= product.title %></a></h5> -->
-                     <p class="card-text">
-                        <%let address=product.address.split(",");%>
-                        <% element=address.slice(2); %>
-                           <%= element %> </p>
-                   </div>
+                     <img class="card-img-top card-header p-0" src="<%= product.urlImage[0] %>" alt="items">
+                     <div class="card-body">
+                        <a href="#" onclick="viewPost('<%= product._id%>')" class="text-decoration-none card-title">
+                           <h5>
+                              <%= product.title %>
+                           </h5>
+                        </a>
+                        <p class="card-text">
+                           <%let address=product.address.split(",");%>
+                              <% element=address.slice(2); %>
+                                 <%= element %>
+                        </p>
+                     </div>
                   </div>
                </div>
                <% }) %>
@@ -120,13 +123,14 @@
 
    <!-- end of content --------------------------------->
 
+   <!-- Create post -->
+   <% include ./create_post.ejs %>
+   <!-- End of Create post -->
    <!-- footer -->
    <% include ./layout/footer.ejs %>
-      <!-- end of footer -->
+   <!-- end of footer -->
 
-      <!-- Create post -->
-      <% include ./create_post.ejs %>
-         <!-- End of Create post -->
+   
 
 
          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
@@ -137,7 +141,7 @@
          <script type="text/javascript" src="client/js/main.js"></script>
 
 
-         </body>
+   </body>
 
 </html>
 <script>

@@ -177,7 +177,7 @@ body {
 .card-title{
    text-decoration: none;
    /* font-weight: 600; */
-   text-transform: capitalize;
+   /* text-transform: capitalize; */
    color: #12263a;
 }
 
