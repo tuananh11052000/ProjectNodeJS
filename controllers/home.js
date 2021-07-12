@@ -49,7 +49,7 @@ module.exports = {
                     else {
 
                         data_product = docs;
-                        res.render('client/home', { title: 'Express', data: docs, profileUser: InfoUser });
+                        res.render('client/home', {  data: docs, profileUser: InfoUser });
 
                     }
                 })
@@ -310,7 +310,7 @@ module.exports = {
         try {
             const post = await Post.find({ 'AuthorID': req.accountID })
             const InfoUser = await User.findOne({ 'AccountID': req.accountID })
-            res.render('client/mypost', { title: 'Express', data: post, profileUser: InfoUser });
+            res.render('client/mypost', { data: post, profileUser: InfoUser });
         } catch (error) {
             res.status(500).json({
                 success: false,
@@ -327,52 +327,90 @@ module.exports = {
             authorPost = await User.findOne({ AccountID: post.AuthorID })
             const InfoUser = await User.findOne({ 'AccountID': req.accountID })
             if (id) {
-                const postCare = await PostCare.findOne({ UserID: req.accountID })
+                const postCare = await PostCare.findOne({
+                    'UserCareID': req.accountID,
+                    'UserPostID': post.AuthorID
+                })
                 if (!postCare) {
                     //if dont'have in database so save new
-                    const CarePost = await new PostCare({
+                    const CarePost = ({
                         PostID: id,
-                        UserID: req.accountID
+                        UserCareID: req.accountID,
+                        UserPostID: post.AuthorID
                     })
-                    CarePost.save()
+                    await PostCare.insertMany(CarePost)
+
                 }
                 else {
                     //check exists
                     UserMessage = await PostCare.findOneAndUpdate(
                         {
-                            'UserID': req.accountID
-                        }, {
-                        $addToSet: { PostID: id }//checkexists and add
-                    },
+                            'UserCareID': req.accountID,
+                            'UserPostID': post.AuthorID
+                        },
                         {
-                            multi: true
+                            $addToSet: { PostID: id }//checkexists and add
+                        },
+                        {
+                            new: true
                         }
-                
+
                     )
-
-
-                    //get
-                   // UserMessage = await PostCare.findOne({UserID: req.accountID })
-                    let temp = [];
-                    for(let i in UserMessage.PostID )
-                    {
-                        PostUserMessage = await Post.findOne({_id:UserMessage.PostID[i]})
-                       temp.push(PostUserMessage)
-                    }
-                    console.log(temp)
-               
-                   
-
-
-                    res.render('client/chatlayout', { title: 'Express', profileUser: InfoUser, AuthorPost: authorPost, CarePost: temp });
+                  
                 }
+                let temp = [];
+                /*const UserMess = await PostCare.find({$or:
+                   [ {'UserCareID': req.accountID},{'UserPostID':req.accountID}]}
+                )*/
+                const UserMess = await PostCare.find(
+                    { 'UserCareID': req.accountID }
+                )
+                for (let i in UserMess) {
+                    for (let j in UserMess[i].PostID) {
+                        temp.push(await Post.findOne({ _id: UserMess[i].PostID[j] }))
+                    }
+                }
+                console.log(authorPost)
+                res.render('client/chatlayout', { title:"chatSender", profileUser: InfoUser, AuthorPost: authorPost, CarePost: temp, CheckID: id });
 
             }
             else {
-                res.render('client/chatlayout', { title: 'Express', profileUser: InfoUser, AuthorPost: null, CarePost: temp });
+                res.render('client/chatlayout', {  profileUser: InfoUser, AuthorPost: null, CarePost: temp, CheckID: id });
             }
-
-
+        } catch (error) {
+            res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+    },
+    ///received chet
+    receivedChat: async (req, res) => {
+        try {
+            const id = req.accountID; //id's user send message
+            
+            //let authorPost
+            //const post = await Post.findOne({ _id: id })
+            //authorPost = await User.findOne({ AccountID: post.AuthorID })
+            const InfoUser = await User.findOne({ 'AccountID': req.accountID })
+            if (id) {
+                const postCare = await PostCare.find({
+                    'UserPostID': id
+                })
+                
+                //check exists
+                let temp = [];
+                //lấy thông tin bài đăng của mình 
+                for (let i in postCare) {
+                    for (let j in postCare[i].PostID) {
+                        temp.push(await Post.findOne({ _id: postCare[i].PostID[j] }))
+                    }
+                }
+                //thông tin người gửi
+                let careUser = await User.findOne({'AccountID':postCare[0].UserCareID})
+                console.log(careUser)
+                res.render('client/chatlayout', {title:"chatReceiver", profileUser: InfoUser, AuthorPost: careUser, CarePost: temp, CheckID: id });
+            }
         } catch (error) {
             res.status(500).json({
                 success: false,

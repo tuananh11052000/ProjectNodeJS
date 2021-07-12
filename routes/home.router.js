@@ -19,4 +19,7 @@ client.post('/create-post', verifyToken, fileUploader.array('productImage', 12),
 client.get('/my-post', verifyToken,CORS, controller.mypost)
 
 client.get('/chat', verifyToken,CORS, controller.chatClient)
+
+client.get('/received-chat', verifyToken,CORS, controller.receivedChat)
+
 module.exports = client;

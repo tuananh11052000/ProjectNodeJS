@@ -26,7 +26,8 @@
         <div class="inbox_people">
           <div class="headind_srch">
             <div class="recent_heading">
-              <h4>Recent</h4>
+              <button class=""active_chat>Bạn tặng</button>
+              <button>Bạn nhận</button>
             </div>
             <div class="srch_bar">
               <div class="stylish-input-group">
@@ -37,9 +38,8 @@
             </div>
           </div>
           <div class="inbox_chat">
-
            <% for( let i in CarePost) { %>
-            <div id="btn-chat" onclick="location.href='http://localhost:3000/chat?ID=<%= CarePost[i]._id %>';" class="chat_list active_chat">
+            <div id="btn-chat" onclick="location.href='http://localhost:3000/chat?ID=<%= CarePost[i]._id %>';" class="chat_list <% if(CheckID == CarePost[i]._id){ %> active_chat <%}%>">
               <div class="chat_people">
                 <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                 <div class="chat_ib">
@@ -49,17 +49,6 @@
               </div>
             </div>
             <% } %>
-         <!--  <div class="chat_list">
-              <div class="chat_people">
-                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                <div class="chat_ib">
-                  <h5>Sunil Rajput <span class="chat_date">Dec 25</span></h5>
-                  <p>Test, which is a new approach to have all solutions 
-                    astrology under one roof.</p>
-                </div>
-              </div>
-            </div> -->
-          
           </div>
         </div>
         <!--content chat -->
@@ -97,15 +86,18 @@
 
 let chatMessages = document.querySelector('.msg_history');
 var socket = io();
-let fromUser= "<%= profileUser.FullName %>";
-let fromIDUser = "<%= profileUser._id %>";
-let toUser="<%= AuthorPost.FullName %>";
-let toIDUser ="<%= AuthorPost._id %>";
+let fromUser;
+let fromIDUser;
+let toUser;
+let toIDUser;
+fromUser= "<%= profileUser.FullName %>";
+fromIDUser = "<%= profileUser._id %>";
+toUser ="<%= AuthorPost.FullName %>";
+toIDUser ="<%= AuthorPost._id %>";
+console.log(fromUser)
 socket.emit('userDetails',{fromUser,fromIDUser,toUser,toIDUser});
 
-
  //emits details of established chat//hiện chi tiết của tin nhắn đã được gửi
-
 
 function myFunction()
 { 
@@ -148,7 +140,7 @@ function outputMessage(message) {
   <p>
      ${message.Message}
  </p> 
- <span class="time_date"> ${message.Time} | ${message.Date}</span>
+ <span class="time_date">${message.SenderUser} | ${message.Time} | ${message.Date}</span>
    </div> 
       </div>`;
   document.querySelector('.msg_history').appendChild(div);
@@ -163,7 +155,7 @@ function outputMessage(message) {
   <p>
      ${message.Message}
  </p> 
- <span class="time_date"> ${message.Time} | ${message.Date}</span>
+ <span class="time_date">${message.SenderUser} | ${message.Time} | ${message.Date}</span>
  </div>
  </div>
  </div>

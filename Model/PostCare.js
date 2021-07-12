@@ -2,7 +2,10 @@ const moment = require('moment');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema
 const PostMessage = new mongoose.Schema({
-    UserID:{
+    UserCareID:{
+        type: Schema.Types.ObjectId,
+    },
+    UserPostID :{
         type: Schema.Types.ObjectId,
     },
     PostID:{type:[]}
