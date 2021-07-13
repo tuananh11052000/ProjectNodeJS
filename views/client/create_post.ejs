@@ -20,7 +20,6 @@
    </div>
 
    <!-- ask sth -->
-
    <div class="modal" id="askModal">
       <div class="modal-dialog modal-lg">
          <div class="modal-content">
@@ -444,10 +443,27 @@
                         </div>
                      </div>
                      <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Đăng tin</button>
+                        <button type="submit" class="btn btn-primary" data-bs-target="#thirdmyModal">Đăng tin</button>
                         <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
                      </div>
                   </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="modal" id="thirdmyModal">
+      <div class="modal-dialog modal-lg">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5>Đăng tin thành công</h5>
+               <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+               <div class="row">
+                  <button type="button" class="btn btn-primary btn-type" id="btn-confirm" data-bs-toggle="modal"
+                     data-bs-dismiss="modal">Xác nhận</button>
                </div>
             </div>
          </div>

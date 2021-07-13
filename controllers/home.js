@@ -52,11 +52,8 @@ module.exports = {
                         data_product = docs;
                         res.render('client/home', {  data: docs, profileUser: InfoUser });
 
-                
+
                 }
-
-
-                    }
                 })
             }
 
