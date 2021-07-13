@@ -34,10 +34,10 @@
                <div class="box-filter col-lg-3 col-md-4 col-sm-6 col-12">
                   <label for="select-catagory">Danh mục: </label><br>
                   <select name="catagory" id="select-catagory">
-                     <option value="cata-1">Tặng cộng đồng</option>
-                     <option value="cata-2">Qũy/nhóm từ thiện</option>
-                     <option value="cata-3">Cá nhân</option>
-                     <option value="cata-4">Tổ chức công ích</option>
+                     <option value="http://localhost:3000/category?TypeAuthor=tangcongdong">Tặng cộng đồng</option>
+                     <option value="http://localhost:3000/category?TypeAuthor=quy">Qũy/nhóm từ thiện</option>
+                     <option value="http://localhost:3000/category?TypeAuthor=canhan">Cá nhân</option>
+                     <option value="http://localhost:3000/category?TypeAuthor=tochuc">Tổ chức công ích</option>
                   </select>
                </div>
                <div class="box-filter col-lg-3 col-md-4 col-sm-6 col-12">
@@ -119,3 +119,14 @@
 
 </script>
 
+<script>
+   $("select").click(function () {
+      var open = $(this).data("isopen");
+      if (open) {
+         window.location.href = $(this).val()
+      }
+      //set isopen to opposite so next time when use clicked select box
+      //it wont trigger this event
+      $(this).data("isopen", !open);
+   });
+</script>
