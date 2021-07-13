@@ -326,7 +326,7 @@ module.exports = {
                             res.json(err)
                         }
                         else {
-                            res.render('admin/post/success', { isOpen: ["", "", "", "open"] })
+                            res.redirect('/')
                         }
                     })
                 }
