@@ -50,10 +50,10 @@ module.exports = {
                     else {
 
                         data_product = docs;
-                        res.render('client/home', {  data: docs, profileUser: InfoUser });
+                        res.render('client/home', { data: docs, profileUser: InfoUser });
 
 
-                }
+                    }
                 })
             }
 
@@ -166,7 +166,7 @@ module.exports = {
 
 
     },
-    
+
     // get page search
     search: async (req, res) => {
         let InfoUser;
@@ -196,21 +196,21 @@ module.exports = {
     category: async (req, res) => {
         if (req.query.TypeAuthor == 'tangcongdong') {
             typeauthor = 'tangcongdong'
-          }
-          if (req.query.TypeAuthor == 'canhan') {
+        }
+        if (req.query.TypeAuthor == 'canhan') {
             typeauthor = 'Cá nhân'
-          }
-          if (req.query.TypeAuthor == 'quy') {
+        }
+        if (req.query.TypeAuthor == 'quy') {
             typeauthor = 'Quỹ/Nhóm từ thiện'
-          }
-          if (req.query.TypeAuthor == 'tochuc') {
+        }
+        if (req.query.TypeAuthor == 'tochuc') {
             typeauthor = 'Tổ chức công ích'
-          }
+        }
         try {
             const post = await Post.find({ 'TypeAuthor': typeauthor })
             const InfoUser = await User.findOne({ 'AccountID': req.accountID })
             res.render('client/category', { title: 'Express', data: post, profileUser: InfoUser });
-        } 
+        }
         catch (error) {
             res.status(500).json({
                 success: false,
@@ -351,12 +351,19 @@ module.exports = {
     ///chat
     chatClient: async (req, res) => {
         try {
+
+            let SortTime = { date: 1 };
             const id = req.query.ID; //id's post
-            let authorPost
-            const post = await Post.findOne({ _id: id })
-            authorPost = await User.findOne({ AccountID: post.AuthorID })
+            //tìm thông tin người dùng
             const InfoUser = await User.findOne({ 'AccountID': req.accountID })
             if (id) {
+                let authorPost
+                //Lấy id bài đăng
+                const post = await Post.findOne({ _id: id })
+                // tìm tác giả bài đăng
+                authorPost = await User.findOne({ AccountID: post.AuthorID })
+
+                //lấy ra những bài đăng mà 2 người nhắn với nhau
                 const postCare = await PostCare.findOne({
                     'UserCareID': req.accountID,
                     'UserPostID': post.AuthorID
@@ -384,28 +391,36 @@ module.exports = {
                         {
                             new: true
                         }
-
                     )
-                  
                 }
+
+                //tìm những người từng nhắn với user
                 let temp = [];
-                /*const UserMess = await PostCare.find({$or:
-                   [ {'UserCareID': req.accountID},{'UserPostID':req.accountID}]}
-                )*/
                 const UserMess = await PostCare.find(
                     { 'UserCareID': req.accountID }
-                )
+                ).sort(SortTime)
                 for (let i in UserMess) {
                     for (let j in UserMess[i].PostID) {
                         temp.push(await Post.findOne({ _id: UserMess[i].PostID[j] }))
                     }
                 }
-                console.log(authorPost)
-                res.render('client/chatlayout', { title:"chatSender", profileUser: InfoUser, AuthorPost: authorPost, CarePost: temp, CheckID: id });
 
+                res.render('client/chatlayout', { title: "chatSender", profileUser: InfoUser, AuthorPost: authorPost, CarePost: temp.slice().reverse(), CheckID: id });
             }
             else {
-                res.render('client/chatlayout', {  profileUser: InfoUser, AuthorPost: null, CarePost: temp, CheckID: id });
+                //tìm người nhắn với user gần nhất
+                const UserMess = await PostCare.find(
+                    { 'UserCareID': req.accountID }
+                )
+                 //tìm những người từng nhắn với user
+                 let temp = [];
+                 for (let i in UserMess) {
+                     for (let j in UserMess[i].PostID) {
+                         temp.push(await Post.findOne({ _id: UserMess[i].PostID[j] }))
+                     }
+                 }
+                authorPost = await User.findOne({ AccountID: UserMess[UserMess.length - 1].UserPostID })
+                res.render('client/chatlayout', { title: "chatSender", profileUser: InfoUser, AuthorPost: authorPost, CarePost: temp.slice().reverse(), CheckID: "yes" });
             }
         } catch (error) {
             res.status(500).json({
@@ -418,16 +433,12 @@ module.exports = {
     receivedChat: async (req, res) => {
         try {
             const id = req.accountID; //id's user send message
-            
-            //let authorPost
-            //const post = await Post.findOne({ _id: id })
-            //authorPost = await User.findOne({ AccountID: post.AuthorID })
+
             const InfoUser = await User.findOne({ 'AccountID': req.accountID })
             if (id) {
                 const postCare = await PostCare.find({
                     'UserPostID': id
                 })
-                
                 //check exists
                 let temp = [];
                 //lấy thông tin bài đăng của mình 
@@ -437,9 +448,9 @@ module.exports = {
                     }
                 }
                 //thông tin người gửi
-                let careUser = await User.findOne({'AccountID':postCare[0].UserCareID})
+                let careUser = await User.findOne({ 'AccountID': postCare[0].UserCareID })
                 console.log(careUser)
-                res.render('client/chatlayout', {title:"chatReceiver", profileUser: InfoUser, AuthorPost: careUser, CarePost: temp, CheckID: id });
+                res.render('client/chatlayout', { title: "chatReceiver", profileUser: InfoUser, AuthorPost: careUser, CarePost: temp.slice().reverse(), CheckID: id });
             }
         } catch (error) {
             res.status(500).json({
@@ -448,7 +459,7 @@ module.exports = {
             });
         }
     }
-    
-    
+
+
 }
 

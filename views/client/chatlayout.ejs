@@ -39,7 +39,7 @@
           </div>
           <div class="inbox_chat">
            <% for( let i in CarePost) { %>
-            <div id="btn-chat" onclick="location.href='http://localhost:3000/chat?ID=<%= CarePost[i]._id %>';" class="chat_list <% if(CheckID == CarePost[i]._id){ %> active_chat <%}%>">
+            <div id="btn-chat" onclick="location.href='http://localhost:3000/chat?ID=<%= CarePost[i]._id %>';" class="chat_list <% if(CheckID == CarePost[i]._id || (CheckID == "yes" && i == 0 )){ %> active_chat <%}%>">
               <div class="chat_people">
                 <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                 <div class="chat_ib">
