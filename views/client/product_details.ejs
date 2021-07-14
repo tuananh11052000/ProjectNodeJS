@@ -67,7 +67,21 @@
                <h3>Thông tin sản phẩm:</h3>
                <p><%= data.note %></p>
             </div>
-
+            <%if(!profileUser){ %>
+             <div class="purchase-infor">
+               <!-- <input type="number" min="0" value="1"> -->
+               <button type="button" class="btn">
+                  <i class="fas fa-mobile-alt"></i> <%= phone %>
+               </button>
+            </div>
+               <div class="purchase-infor">
+               <!-- <input type="number" min="0" value="1"> -->
+               <button type="button" class="btn" id="btn-chat" >
+                  Chat với người đăng bài
+               </button>
+            </div>
+           
+            <%} else if( data.AuthorID.toString() != profileUser.AccountID.toString() ){%>
             <div class="purchase-infor">
                <!-- <input type="number" min="0" value="1"> -->
                <button type="button" class="btn">
@@ -80,7 +94,14 @@
                   Chat với người đăng bài
                </button>
             </div>
-
+            <% }else if(data.AuthorID.toString() == profileUser.AccountID.toString()){ console.log("true") %>
+             <div class="purchase-infor">
+               <!-- <input type="number" min="0" value="1"> -->
+               <button type="button" class="btn"  onclick="location.href='/delete-post?_id=<%=data._id%>'"  onclick="alert('Đăng tin thành công')" >
+                  Xóa bài viết
+               </button>
+            </div>
+            <%}%>
             <div class="seller-infor">
                <h4><%= data.NameAuthor %></h4>
                <p>
@@ -118,7 +139,7 @@
    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
    <script>
          document.getElementById("btn-chat").onclick = function () {
-               location.href = "http://localhost:3000/chat?ID=<%= data._id %>";
+               location.href = "/chat?ID=<%= data._id %>";
                
     };
    </script>
