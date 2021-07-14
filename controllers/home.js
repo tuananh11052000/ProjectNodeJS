@@ -12,6 +12,7 @@ const { findOne } = require('../Model/User');
 const Account = require('../Model/Account');
 const jwt = require('jsonwebtoken')
 const PostCare = require('../Model/PostCare')
+var moment = require('moment');
 
 let data_product
 
@@ -154,7 +155,7 @@ module.exports = {
                 }
                 else {
                     //render
-                    res.render('client/product_details', { data: data_post, phone: phoneNumber, profileUser: InfoUser });
+                    res.render('client/product_details', { data: data_post, phone: phoneNumber, profileUser: InfoUser, moment: moment });
                 }
             }
         } catch (error) {
@@ -432,26 +433,30 @@ module.exports = {
     ///received chet
     receivedChat: async (req, res) => {
         try {
-            const id = req.accountID; //id's user send message
-
-            const InfoUser = await User.findOne({ 'AccountID': req.accountID })
-            if (id) {
-                const postCare = await PostCare.find({
-                    'UserPostID': id
-                })
-                //check exists
-                let temp = [];
-                //lấy thông tin bài đăng của mình 
-                for (let i in postCare) {
-                    for (let j in postCare[i].PostID) {
-                        temp.push(await Post.findOne({ _id: postCare[i].PostID[j] }))
-                    }
-                }
-                //thông tin người gửi
-                let careUser = await User.findOne({ 'AccountID': postCare[0].UserCareID })
-                console.log(careUser)
-                res.render('client/chatlayout', { title: "chatReceiver", profileUser: InfoUser, AuthorPost: careUser, CarePost: temp.slice().reverse(), CheckID: id });
+            const IdUser = req.accountID; //id's user send message
+            const InfoUser = await User.findOne({ 'AccountID': IdUser })
+            const postCare = await PostCare.find({
+                'UserPostID': IdUser
+            })
+            //check exists
+            let temp = [];
+            let careUser ;
+            //lấy thông tin những người quan tâm đến bài đăng của mình 
+            for (let i in postCare) {
+                temp.push(await User.findOne({ AccountID:postCare[i].UserCareID }))
+ 
             }
+            let id = req.query.ID; //id'người nhắn cho user
+            
+            if (!id) {  
+                //thông tin người gửi
+                careUser = await User.findOne({ 'AccountID': postCare[0].UserCareID })
+                id = "yes"
+            }
+            else{
+                careUser = await User.findOne({ 'AccountID': id })
+            }
+            res.render('client/chatlayout', { title: "chatReceiver", profileUser: InfoUser, AuthorPost: careUser, CarePost: temp.slice().reverse(), CheckID: id });
         } catch (error) {
             res.status(500).json({
                 success: false,

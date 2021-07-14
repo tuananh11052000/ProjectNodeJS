@@ -26,29 +26,41 @@
         <div class="inbox_people">
           <div class="headind_srch">
             <div class="recent_heading">
-              <button class=""active_chat>Bạn tặng</button>
-              <button>Bạn nhận</button>
+              <button   class="btn-chat" onclick="location.href='http://localhost:3000/chat'">Bài tôi quan tâm </button>
+              <button class="btn-chat" onclick="location.href='http://localhost:3000/received-chat'">Bài đăng của tôi</button>
             </div>
-            <div class="srch_bar">
-              <div class="stylish-input-group">
-                <input type="text" class="search-bar"  placeholder="Search" >
-                <span class="input-group-addon">
-                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
-                </span> </div>
-            </div>
+           
           </div>
           <div class="inbox_chat">
+          <% if( title == "chatSender" ) {%>
            <% for( let i in CarePost) { %>
-            <div id="btn-chat" onclick="location.href='http://localhost:3000/chat?ID=<%= CarePost[i]._id %>';" class="chat_list <% if(CheckID == CarePost[i]._id || (CheckID == "yes" && i == 0 )){ %> active_chat <%}%>">
+            <div id="btn-chat" 
+             onclick="location.href='http://localhost:3000/chat?ID=<%= CarePost[i]._id %>';"  class="chat_list <% if(CheckID == CarePost[i]._id || (CheckID == "yes" && i == 0 )){ %> active_chat <%}%>">
               <div class="chat_people">
                 <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
                 <div class="chat_ib">
-                  <h5><%= CarePost[i].NameAuthor %> <span class="chat_date">Dec 25</span></h5>
+                  <h5><%= CarePost[i].NameAuthor %> </h5>
                   <p><%= CarePost[i].title %></p>
+                 
+                </div>
+                 <div class="post_img"><img src="<%=  CarePost[i].urlImage[0] %>" alt="sunil"></div>
+              </div>
+            </div>
+            <% } } %>
+            <% if(title =="chatReceiver"){%> 
+              <% for( let i in CarePost) { %>
+            <div id="btn-chat" 
+             onclick="location.href='http://localhost:3000/received-chat?ID=<%= CarePost[i].AccountID %>';"  class="chat_list <% if(CheckID == CarePost[i].AccountID || (CheckID == "yes" && i == 0 )){ %> active_chat <%}%>">
+              <div class="chat_people">
+                <div class="chat_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                <div class="chat_ib">
+                  <h5><%= CarePost[i].FullName %>
+                <!-- <span class="chat_date">Dec 25</span></h5> -->
+                  <!--<p><%= CarePost[i].title %></p>-->
                 </div>
               </div>
             </div>
-            <% } %>
+            <% } } %>
           </div>
         </div>
         <!--content chat -->

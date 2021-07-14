@@ -13,8 +13,18 @@ img{ max-width:100%;}
 }
 .top_spac{ margin: 20px 0 0;}
 
-
-.recent_heading {float: left; width:40%;}
+.btn-chat{
+  position: relative;
+  background-color: #FFBD33;
+  border: none;
+  color: #000;
+  text-align: center;
+  text-decoration: none;
+  overflow: hidden;
+  padding: 10px;
+  cursor: pointer;
+}
+.recent_heading {float: left;}
 .srch_bar {
   display: inline-block;
   text-align: right;
@@ -42,12 +52,17 @@ img{ max-width:100%;}
 .chat_ib p{ font-size:14px; color:#989898; margin:auto}
 .chat_img {
   float: left;
-  width: 11%;
+  width: 10%;
+}
+.post_img{
+  float: right;
+  width: 20%;
+
 }
 .chat_ib {
   float: left;
   padding: 0 0 0 15px;
-  width: 88%;
+  width: 70%;
 }
 
 .chat_people{ overflow:hidden; clear:both;}
