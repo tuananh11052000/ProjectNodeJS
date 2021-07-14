@@ -207,9 +207,19 @@ module.exports = {
         if (req.query.TypeAuthor == 'tochuc') {
             typeauthor = 'Tổ chức công ích'
         }
+        let InfoUser;
         try {
+            const token = req.cookies['token']
+            if (!token) {
+                InfoUser = null
+            }
+            else {
+                const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+                req.accountID = decoded.accountID
+                InfoUser = await User.findOne({ 'AccountID': req.accountID })
+            }
+
             const post = await Post.find({ 'TypeAuthor': typeauthor })
-            const InfoUser = await User.findOne({ 'AccountID': req.accountID })
             res.render('client/category', { title: 'Express', data: post, profileUser: InfoUser });
         }
         catch (error) {
