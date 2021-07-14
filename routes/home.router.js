@@ -20,10 +20,11 @@ client.get('/my-post', verifyToken,CORS, controller.mypost)
 
 client.get('/chat', verifyToken,CORS, controller.chatClient)
 
-
 client.get('/received-chat', verifyToken,CORS, controller.receivedChat)
 
 client.get('/category', CORS, controller.category)
+
+client.get('/delete-post',  verifyToken,CORS, controller.DeletePost)
 
 
 module.exports = client;

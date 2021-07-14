@@ -347,6 +347,7 @@ module.exports = {
         }
 
     },
+    //my post
     mypost: async (req, res) => {
         try {
             const post = await Post.find({ 'AuthorID': req.accountID })
@@ -423,13 +424,13 @@ module.exports = {
                 const UserMess = await PostCare.find(
                     { 'UserCareID': req.accountID }
                 )
-                 //tìm những người từng nhắn với user
-                 let temp = [];
-                 for (let i in UserMess) {
-                     for (let j in UserMess[i].PostID) {
-                         temp.push(await Post.findOne({ _id: UserMess[i].PostID[j] }))
-                     }
-                 }
+                //tìm những người từng nhắn với user
+                let temp = [];
+                for (let i in UserMess) {
+                    for (let j in UserMess[i].PostID) {
+                        temp.push(await Post.findOne({ _id: UserMess[i].PostID[j] }))
+                    }
+                }
                 authorPost = await User.findOne({ AccountID: UserMess[UserMess.length - 1].UserPostID })
                 res.render('client/chatlayout', { title: "chatSender", profileUser: InfoUser, AuthorPost: authorPost, CarePost: temp.slice().reverse(), CheckID: "yes" });
             }
@@ -450,20 +451,20 @@ module.exports = {
             })
             //check exists
             let temp = [];
-            let careUser ;
+            let careUser;
             //lấy thông tin những người quan tâm đến bài đăng của mình 
             for (let i in postCare) {
-                temp.push(await User.findOne({ AccountID:postCare[i].UserCareID }))
- 
+                temp.push(await User.findOne({ AccountID: postCare[i].UserCareID }))
+
             }
             let id = req.query.ID; //id'người nhắn cho user
-            
-            if (!id) {  
+
+            if (!id) {
                 //thông tin người gửi
                 careUser = await User.findOne({ 'AccountID': postCare[0].UserCareID })
                 id = "yes"
             }
-            else{
+            else {
                 careUser = await User.findOne({ 'AccountID': id })
             }
             res.render('client/chatlayout', { title: "chatReceiver", profileUser: InfoUser, AuthorPost: careUser, CarePost: temp.slice().reverse(), CheckID: id });
@@ -473,8 +474,66 @@ module.exports = {
                 message: error.message
             });
         }
-    }
+    },
+
+    //deletePost
+    //delete Posst 
+
+    DeletePost: async (req, res) => {
+        try {
 
 
+
+            InfoUser = await User.findOne({ 'AccountID': req.accountID })
+            //ID from client
+            const id = req.query._id;
+            //find News by ID 
+            const post = await Post.findOne({ '_id': id })
+            if (!post) {
+                res.status(400).json({
+                    success: false,
+                    message: "do not have Post in data",
+                });
+            }
+            else {
+
+                const UserHistory = await User.find({})
+                for (let i in UserHistory) {
+                    const UserInfor = await User.findOneAndUpdate(
+                        { _id: UserHistory[i]._id },
+                        {
+                            $pull: {
+                                History: id
+                            }
+                        },
+                        {
+                            new: true
+                        }
+                    )
+                }
+
+                await post.urlImage.map(function (url) {
+                    //delete image
+                    //Tách chuỗi lấy id
+                    const image_type = url.split(/[/,.]/)
+                    //lấy tách ID
+                    const imageId = image_type[image_type.length - 2]
+                    //xóa ảnh
+                    cloudinary_detele.uploader.destroy(imageId);
+                })
+                //xóa tin đăng 
+                await post.remove()
+                const mypost = await Post.find({ 'AuthorID': req.accountID })
+                res.render('client/mypost', { data: mypost, profileUser: InfoUser });
+            }
+            } catch (error) {
+                res.status(500).json({
+                    success: false,
+                    'message': error.message
+                });
+            }
+        }
+        
+    
 }
 

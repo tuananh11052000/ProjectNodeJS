@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Thông báo</title>
+   <!-- stylesheet -->
+   <link rel="stylesheet" href="client/css/search.css">
+   <link rel="stylesheet" href="client/css/style.css">
+   <!-- fav icon -->
+   <link rel="icon" href="client/images/icon.png">
+
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+
+</head>
+
+<% include ./layout/menu.ejs %>
+
+<div id="container">
+  <div id="success-box">
+    <div class="dot"></div>
+    <div class="dot two"></div>
+    <div class="face">
+      <div class="eye"></div>
+      <div class="eye right"></div>
+      <div class="mouth happy"></div>
+    </div>
+    <div class="shadow scale"></div>
+    <div class="message"><h1 class="alert">Success!</h1><p>Xóa tin đăng thành công</p></div>
+  </div>
+  <!--<div id="error-box">
+    <div class="dot"></div>
+    <div class="dot two"></div>
+    <div class="face2">
+      <div class="eye"></div>
+      <div class="eye right"></div>
+      <div class="mouth sad"></div>
+    </div>
+    <div class="shadow move"></div>
+    <div class="message"><h1 class="alert">Error!</h1><p>oh no, something went wrong.</div>
+    <button class="button-box"><h1 class="red">try again</h1></button>
+  </div>-->
+</div>
+
+
+
+
+
+
+   <!-- Create post -->
+<% include ./create_post.ejs %>
+   <!-- End of Create post -->
+   <!-- footer -->
+<% include ./layout/footer.ejs %>
+   <!-- end of footer -->
+
+         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+         <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+         <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+         <script src="client/js/script.js"></script>
+         <script type="text/javascript" src="client/js/search.js"></script>
+         </body>
+
+</html>
