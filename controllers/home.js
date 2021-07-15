@@ -315,7 +315,7 @@ module.exports = {
                             res.json(err)
                         }
                         else {
-                            res.render('admin/post/success', { isOpen: ["", "", "", "open"] })
+                            res.redirect('/')
                         }
                     })
                 } else {
@@ -606,7 +606,6 @@ module.exports = {
                     }
                 }, function (err, data) {
                     if (err) {
-                        console.log("__________________________________")
                         res.redirect("/profile")
                     }
                     else {
@@ -615,7 +614,6 @@ module.exports = {
                     }
                 });
         } catch (error) {
-            console.log("BUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG")
             res.redirect("/profile")
         }
     }
