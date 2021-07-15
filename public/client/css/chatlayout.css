@@ -130,6 +130,9 @@ img{ max-width:100%;}
 }
 
 .type_msg {border-top: 1px solid #c4c4c4;position: relative;}
+.type_msg:focus {outline: none;
+  box-shadow: none;}
+.write_msg:focus-visible{outline: none;}
 .msg_send_btn {
   background: #05728f none repeat scroll 0 0;
   border: medium none;

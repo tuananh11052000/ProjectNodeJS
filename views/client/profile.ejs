@@ -40,8 +40,13 @@
                         </div>
                         <div class="contact">
                             <p>
-                                <i class="fas fa-map-marker-alt"></i> Chưa có thông tin
+                            <% if(profileUser.Address) { %>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <%=profileUser.Address%>
+                            <%} else{%>  <i class="fas fa-map-marker-alt"></i>Chưa có thông tin <%}%>
+                               
                             </p>
+                            
                             <p>
                                 <i class="fas fa-phone-alt"></i>
                                 <%="+84"+profileUser.PhoneNumber %>

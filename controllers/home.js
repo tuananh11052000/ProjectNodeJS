@@ -25,7 +25,7 @@ module.exports = {
         try {
             const token = req.cookies['token']
             if (!token) {
-                await Post.find({}).sort(SortTime).limit(12).exec(function (err, docs) {
+                await Post.find({confirm:true}).sort(SortTime).limit(12).exec(function (err, docs) {
                     if (err) {
 
                         res.render('client/home', { status: ["", "", "Lỗi server"] });
@@ -42,7 +42,7 @@ module.exports = {
                 const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
                 req.accountID = decoded.accountID
                 InfoUser = await User.findOne({ 'AccountID': req.accountID })
-                await Post.find({}).sort(SortTime).limit(12).exec(function (err, docs) {
+                await Post.find({confirm:true}).sort(SortTime).limit(12).exec(function (err, docs) {
                     if (err) {
 
 
