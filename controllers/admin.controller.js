@@ -242,6 +242,8 @@ module.exports = {
             var editedUser = await User.findOne({
                 _id: req.query._id
             })
+            console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
+            console.log(req.files[0].path)
             //confirm that the user edited is existing
             if (!editedUser) {
                 // return res
@@ -264,10 +266,12 @@ module.exports = {
                         BirthDay: req.body.BirthDay || editedUser.BirthDay,
                         Address: req.body.Address || editedUser.Address,
                         Gender: req.body.Gender || editedUser.Gender,
-                        PhoneNumber: req.body.PhoneNumber || editedUser.PhoneNumber
+                        PhoneNumber: editedUser.PhoneNumber,
+                        urlImage: req.files[0].path
                     }
                 }, function (err, data) {
                     if (err) {
+                        console.log("__________________________________")
                         res.render("admin/user/error", { isOpen: ["", "", "open", ""] })
                     }
                     else {
@@ -275,7 +279,7 @@ module.exports = {
                     }
                 });
         } catch (error) {
-            res.render("admin/user/error")
+            res.render("admin/user/error", { isOpen: ["", "", "open", ""] })
         }
     },
     removeUser: async (req, res, next) => {
@@ -449,6 +453,7 @@ module.exports = {
             NameAuthor,
             address,
         } = req.body;
+        console.log(req.body)
         try {
             if (!title) {
                 res.render('admin/post/error', { isOpen: ["", "", "", "open"] })
@@ -478,7 +483,6 @@ module.exports = {
                     'urlImage': req.files.map(function (files) {
                         return files.path
                     })
-
                 })
                 dataPost.save(function (err, data) {
                     if (err) {

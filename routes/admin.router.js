@@ -21,7 +21,7 @@ admin.get('/login', controller.loginGet);
 admin.post('/login', controller.loginPost);
 admin.get('/all-user', verifyTokenAdmin, checkAdmin, CORS, controller.getAllUser);
 admin.post('/remove-user', verifyTokenAdmin, checkAdmin, CORS, controller.removeUser);
-admin.post('/edit-user', verifyTokenAdmin, checkAdmin, CORS, controller.editUserPost);
+admin.post('/edit-user', verifyTokenAdmin, checkAdmin, CORS, fileUploader.array('image', 12), controller.editUserPost);
 admin.get('/edit-user', verifyTokenAdmin, checkAdmin, CORS, controller.editUserGet);
 admin.get('/view-user', verifyTokenAdmin, checkAdmin, CORS, controller.viewUser)
 

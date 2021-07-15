@@ -22,8 +22,8 @@ var User = new mongoose.Schema({
         type: Number,
         ref: 'Account'
     },
-    urlIamge:{
-       type: String,
+    urlImage: {
+        type: String,
     },
     AccountID: {
         type: Schema.Types.ObjectId,
@@ -35,7 +35,7 @@ var User = new mongoose.Schema({
     updateAt: {
         type: Schema.Types.Date
     },
-    History:[]
+    History: []
 }, {
     collection: 'User',
     versionKey: false,
