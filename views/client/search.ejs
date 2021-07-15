@@ -28,41 +28,8 @@
          </div>
       </div>
 
-      <div class="container-fluid p-1 wrap-filter">
-         <div class="container">
-            <div class="wrap-fillter row">
-               <div class="box-filter col-lg-3 col-md-4 col-sm-6 col-12">
-                  <label for="select-catagory">Danh mục: </label><br>
-                  <select name="catagory" id="select-catagory">
-                     <option value="cata-1">Tặng miễn phí</option>
-                     <option value="cata-2">Quần áo</option>
-                     <option value="cata-3">Học tập</option>
-                     <option value="cata-4">Đồ điện tử</option>
-                     <option value="cata-5">Xe cộ</option>
-                     <option value="cata-6">Thực phẩm</option>
-                  </select>
-               </div>
-               <div class="box-filter col-lg-3 col-md-4 col-sm-6 col-12">
-                  <label for="select-address">Khu vực: </label><br>
-                  <select name="address" id="select-address">
-                     <option value="hcm">Toàn quốc</option>
-                     <option value="hcm">Tp HCM</option>
-                     <option value="hn">Hà Nội</option>
-                     <option value="dn">Đà Nẵng</option>
-                     <option value="hp">Hải Phòng</option>
-                     <option value="na">Nghệ An</option>
-                  </select>
-               </div>
-               <div class="box-filter col-lg-3 col-md-4 col-sm-6 col-12">
-                  <label for="filter-sort">Sắp xếp theo: </label><br>
-                  <select name="sort-product" id="filter-sort">
-                     <option value="price-up">Giá thấp trước</option>
-                     <option value="post">Tin mới trước</option>
-                  </select>
-               </div>
-            </div>
-         </div>
-      </div>
+     
+      <% include ./layout/filter.ejs %>
 
       <!-- product -->
       <div class="container-fluid p-1 wrap-post">

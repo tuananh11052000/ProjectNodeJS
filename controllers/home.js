@@ -219,7 +219,7 @@ module.exports = {
                 InfoUser = await User.findOne({ 'AccountID': req.accountID })
             }
 
-            const post = await Post.find({ 'TypeAuthor': typeauthor })
+            const post = await Post.find({ 'TypeAuthor': typeauthor,confirm:true })
             res.render('client/category', { title: 'Express', data: post, profileUser: InfoUser });
         }
         catch (error) {
