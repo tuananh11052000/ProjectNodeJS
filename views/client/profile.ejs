@@ -23,10 +23,10 @@
                 <div class="col-xs-12 col-md-6 basic-infor">
                     <div class="avatar">
 
-                        <% if(!profileUser.urlIamge) { %>
+                        <% if(!profileUser.urlImage) { %>
                             <img src="client/images/avatar.svg" alt="avatar">
                             <%} else {%>
-                                <img src="<%=profileUser.urlIamge%>" alt="avatar">%>
+                                <img src="<%=profileUser.urlImage%>" alt="avatar">%>
                                 <%}%>
 
                     </div>
@@ -48,7 +48,7 @@
                             </p>
                         </div>
                         <div class="edit-infor">
-                            <button class="edit-profile">Chỉnh sửa trang cá nhân</button>
+                            <button class="edit-profile" onclick={redirectThisPage()}>Chỉnh sửa trang cá nhân</button>
                         </div>
                     </div>
                 </div>
@@ -103,7 +103,7 @@
                             <!-- add -->
                             <a onclick="viewPost('<%= product._id%>')"></a>
                             <!-- add -->
-                            <img class="card-img-top card-header p-0" src="<%= product.urlImage[0] %>" alt="items">
+                            <img class="card-img-top card-header p-0" src="<%= product.urlImage[0] %>" id="avatar" alt="items">
                             <div class="card-body">
                                 <a href="#" onclick="viewPost('<%= product._id%>')"
                                     class="text-decoration-none card-title">
@@ -152,5 +152,7 @@
         let url = `view-post?_id=${id}`
         location.href = url
     }
-
+    function redirectThisPage() {
+        location.href = "/editProfile";
+    }
 </script>

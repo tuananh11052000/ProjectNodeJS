@@ -526,14 +526,100 @@ module.exports = {
                 const mypost = await Post.find({ 'AuthorID': req.accountID })
                 res.render('client/mypost', { data: mypost, profileUser: InfoUser });
             }
-            } catch (error) {
-                res.status(500).json({
-                    success: false,
-                    'message': error.message
-                });
-            }
+        } catch (error) {
+            res.status(500).json({
+                success: false,
+                'message': error.message
+            });
         }
-        
-    
+    },
+    editProfile: async (req, res) => {
+        try {
+            const token = req.cookies['token']
+            const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+            req.accountID = decoded.accountID
+            const data = await User.findOne({ 'AccountID': req.accountID })
+            if (!data) {
+                throw new Error("serveral errors")
+            }
+            else {
+
+                //Lich su xem cua nguoi dung
+                post = [];
+                for (let i in data.History) {
+                    history = await Post.findOne({ '_id': data.History[i], confirm: true })
+                    if (history) {
+                        post.push(history)
+                    }
+
+                }
+
+                res.render('client/editProfile',
+                    {
+                        //data_Profile: data,
+                        data_History: post,
+                        profileUser: data,
+                        user: data
+
+                    });
+            }
+
+
+        } catch (error) {
+            res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
+    },
+    editProfilePost: async (req, res, next) => {
+        try {
+            //id of the user being edited in request
+            //get _id of the user by query data from url
+            var editedUser = await User.findOne({
+                _id: req.query._id
+            })
+            //confirm that the user edited is existing
+            if (!editedUser) {
+                // return res
+                //     .status(404)
+                //     .json({
+                //         success: false,
+                //         message: "The User you have chosen to edit does not exist"
+                //     })
+                res.redirect("/profile")
+            }
+            //edit user
+            // must contain PhoneNumber, Password, Rule into the req.body
+            //in this method, admin can not change property AccountId and userName
+            //if any field is null, it will be remain the previous value
+            User.updateOne(
+                { _id: req.query._id },
+                {
+                    $set: {
+                        FullName: req.body.FullName || editedUser.FullName,
+                        BirthDay: req.body.BirthDay || editedUser.BirthDay,
+                        Address: req.body.Address || editedUser.Address,
+                        Gender: req.body.Gender || editedUser.Gender,
+                        PhoneNumber: editedUser.PhoneNumber,
+                        urlImage: req.files[0].path
+                    }
+                }, function (err, data) {
+                    if (err) {
+                        console.log("__________________________________")
+                        res.redirect("/profile")
+                    }
+                    else {
+                        console.log("oke")
+                        res.redirect("/profile")
+                    }
+                });
+        } catch (error) {
+            console.log("BUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG")
+            res.redirect("/profile")
+        }
+    }
+
+
 }
 

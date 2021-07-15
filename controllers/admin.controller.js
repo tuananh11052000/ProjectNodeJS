@@ -242,8 +242,6 @@ module.exports = {
             var editedUser = await User.findOne({
                 _id: req.query._id
             })
-            console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-            console.log(req.files[0].path)
             //confirm that the user edited is existing
             if (!editedUser) {
                 // return res
@@ -518,5 +516,49 @@ module.exports = {
                 res.render('admin/profile/profile', { isOpen: ["", "", "", ""], account: data_, user: data })
             })
         })
+    },
+    editProfilerPost: async (req, res, next) => {
+        try {
+            //id of the user being edited in request
+            //get _id of the user by query data from url
+            var editedUser = await User.findOne({
+                _id: req.query._id
+            })
+            //confirm that the user edited is existing
+            if (!editedUser) {
+                // return res
+                //     .status(404)
+                //     .json({
+                //         success: false,
+                //         message: "The User you have chosen to edit does not exist"
+                //     })
+                res.render("admin/user/error")
+            }
+            //edit user
+            // must contain PhoneNumber, Password, Rule into the req.body
+            //in this method, admin can not change property AccountId and userName
+            //if any field is null, it will be remain the previous value
+            User.updateOne(
+                { _id: req.query._id },
+                {
+                    $set: {
+                        FullName: req.body.FullName || editedUser.FullName,
+                        BirthDay: req.body.BirthDay || editedUser.BirthDay,
+                        Address: req.body.Address || editedUser.Address,
+                        Gender: req.body.Gender || editedUser.Gender,
+                        PhoneNumber: editedUser.PhoneNumber,
+                        urlImage: req.files[0].path
+                    }
+                }, function (err, data) {
+                    if (err) {
+                        res.redirect("/profile")
+                    }
+                    else {
+                        res.redirect("/profile")
+                    }
+                });
+        } catch (error) {
+            res.redirect("/profile")
+        }
     }
 }

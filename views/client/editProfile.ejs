@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- stylesheet -->
+    <link rel="stylesheet" href="client/css/style.css">
+    <link rel="stylesheet" href="client/css/profile.css">
+    <!-- fav icon -->
+    <link rel="icon" href="client/images/icon.png">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+<% include ./layout/menu.ejs %>
+<div class="content-body">
+    <div class="row" style="justify-content: center; margin-top: 50px; margin-bottom: 100px;">
+        <form action="/admin/editProfile?_id=<%=user._id  %> " method="post" enctype="multipart/form-data" style="width: 1000px">
+            <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                <div class="form-group">
+                    <label class="form-label" for="field-120334">Full Name</label>
+                    <span class="desc"></span>
+                    <div class="controls">
+                        <input type="text" id="name" value="<%= user.FullName %> "
+                            class="form-control" name="FullName">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                <div class="form-group">
+                    <label class="form-label" for="field-120334">PhoneNumber</label>
+                    <span class="desc"></span>
+                    <div class="controls">
+                        <input type="text" id="name" value="0<%=user.PhoneNumber%>"
+                            class="form-control" name="PhoneNumber">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                <div class="form-group">
+                    <label class="form-label" for="field-120334">Address</label>
+                    <span class="desc"></span>
+                    <div class="controls">
+                        <input type="text" id="name" value="<%=user.Address %>"
+                            class="form-control" name="Address">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                <div class="form-group">
+                    <label class="form-label" for="field-120334">BirthDay</label>
+                    <span class="desc"></span>
+                    <div class="controls">
+                        <input type="date" id="name" value="<%=user.Birthday %> "
+                            class="form-control" name="BirthDay">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
+                    <div class="form-group">
+                        <label class="form-label" for="field-120334">Image</label>
+                        <div class="controls">
+                            <input type="file" id="name" class="form-control"
+                                name="image">
+                        </div>
+                    </div>
+                </div>
+            <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30" style="margin-top: 40px!important;>
+                <div class="text-left">
+                    <button type="submit" class="btn btn-primary"
+                        onclick="redirectThisPage()">Save</button>
+                    <button type="button" class="btn btn-danger"
+                        onclick="redirectThisPage()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+   <!-- End of Create post -->
+   <!-- footer -->
+   <% include ./layout/footer.ejs %>
+   <!-- end of footer -->
+
+            <!-- end of footer -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+            <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+            <script type="text/javascript"
+                src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+            <script src="client/js/script.js"></script>
+            <script type="text/javascript" src="client/js/main.js"></script>
+            </body>
+
+</html>
+<script>
+    function viewPost(id) {
+        let url = `view-post?_id=${id}`
+        location.href = url
+    }
+
+</script>

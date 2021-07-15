@@ -37,5 +37,6 @@ admin.get('/logout', CORS, controller.logoutGet)
 admin.get('/getAccount', verifyTokenAdmin, CORS, controller.findAccount)
 
 admin.get('/profile', verifyTokenAdmin, CORS, controller.profile)
+admin.post('/editProfile', CORS, fileUploader.array('image', 12), controller.editProfilerPost)
 
 module.exports = admin;
