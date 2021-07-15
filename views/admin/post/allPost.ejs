@@ -82,9 +82,19 @@
                                                             <td class="td-hover">
                                                                 <%= i%>
                                                             </td>
+                                                            <% if(item.TypeAuthor.toString()=="tangcongdong") {%>
                                                             <td class="td-hover">
+                                                              Tặng cộng đồng
+                                                            </td>
+                                                            <%}else if(item.TypeAuthor.toString()=="Cá nhân"){%>
+                                                            <td class="td-hover">
+                                                               Cá nhân khó khăn
+                                                            </td>
+                                                            <%}else{%>
+                                                             <td class="td-hover">
                                                                 <%= item.TypeAuthor%>
                                                             </td>
+                                                            <%}%>
                                                             <td class="td-hover">
                                                                 <%= item.NameAuthor %>
                                                             </td>
