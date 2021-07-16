@@ -616,6 +616,32 @@ module.exports = {
         } catch (error) {
             res.redirect("/profile")
         }
+    },
+
+    //filter 
+    Filterlist: async (req, res, next) =>{
+     
+        let InfoUser;
+        try {
+            const token = req.cookies['token']
+            if (!token) {
+                InfoUser = null
+            }
+            else {
+                const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+                req.accountID = decoded.accountID
+                InfoUser = await User.findOne({ 'AccountID': req.accountID })
+            }
+
+            const post = await Post.find({ confirm: true, NameProduct: {$elemMatch:{ Category: req.query.category} } })
+            res.render('client/category', { title: 'Express', data: post, profileUser: InfoUser });
+        }
+        catch (error) {
+            res.status(500).json({
+                success: false,
+                message: error.message
+            });
+        }
     }
 
 
