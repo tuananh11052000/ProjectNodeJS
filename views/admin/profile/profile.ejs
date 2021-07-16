@@ -43,6 +43,10 @@
                                                             href="http://www.jquery2dotnet.com">https://github.com/</a>
                                                         <br />
                                                         <i class="glyphicon glyphicon-gift"></i>June 02, 1988
+                                                        <form action="/admin/edit-user?_id=<%=user._id  %> " method="post" enctype="multipart/form-data">
+                                                            <b>Thêm ảnh đại diện</b><input name="image" type="file"/>
+                                                            <button type="submit" class="btn btn-primary" onclick="redirectThisPage()">Save</Button>
+                                                        </form>
                                                     </p>
                                                     <!-- Split button -->
                                                 </div>
@@ -72,3 +76,8 @@
                     src="TT_Admin/assets/plugins/datatables/extensions/Responsive/bootstrap/3/dataTables.bootstrap.js"
                     type="text/javascript"></script>
                 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+                <script>
+                    function redirectThisPage() {
+                        location.href = "admin/all-user";
+                    }
+                </script>
