@@ -19,7 +19,7 @@
         <form action="/admin/editProfile?_id=<%=user._id  %> " method="post" enctype="multipart/form-data" style="width: 1000px">
             <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
                 <div class="form-group">
-                    <label class="form-label" for="field-120334">Full Name</label>
+                    <label class="form-label" for="field-120334">Họ và tên</label>
                     <span class="desc"></span>
                     <div class="controls">
                         <input type="text" id="name" value="<%= user.FullName %> "
@@ -29,7 +29,7 @@
             </div>
             <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
                 <div class="form-group">
-                    <label class="form-label" for="field-120334">PhoneNumber</label>
+                    <label class="form-label" for="field-120334">Số điện thoại</label>
                     <span class="desc"></span>
                     <div class="controls">
                         <input type="text" id="name" value="0<%=user.PhoneNumber%>"
@@ -39,7 +39,7 @@
             </div>
             <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
                 <div class="form-group">
-                    <label class="form-label" for="field-120334">Address</label>
+                    <label class="form-label" for="field-120334">Địa chỉ</label>
                     <span class="desc"></span>
                     <div class="controls">
                         <input type="text" id="name" value="<%=user.Address %>"
@@ -49,7 +49,7 @@
             </div>
             <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
                 <div class="form-group">
-                    <label class="form-label" for="field-120334">BirthDay</label>
+                    <label class="form-label" for="field-120334">Ngày sinh</label>
                     <span class="desc"></span>
                     <div class="controls">
                         <input type="date" id="name" value="<%=user.Birthday %> "
@@ -59,7 +59,7 @@
             </div>
             <div class="col-xs-12 col-sm-9 col-md-8 padding-bottom-30">
                     <div class="form-group">
-                        <label class="form-label" for="field-120334">Image</label>
+                        <label class="form-label" for="field-120334">Ảnh đại diện</label>
                         <div class="controls">
                             <input type="file" id="name" class="form-control"
                                 name="image">
