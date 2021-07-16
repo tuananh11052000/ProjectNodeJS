@@ -23,7 +23,7 @@ client.get('/chat', verifyToken, CORS, controller.chatClient)
 client.get('/received-chat', verifyToken, CORS, controller.receivedChat)
 
 client.get('/category', CORS, controller.category)
-
+client.get('/filter',CORS, controller.Filterlist)
 client.get('/delete-post', verifyToken, CORS, controller.DeletePost)
 client.get('/editProfile', verifyToken, CORS, controller.editProfile)
 client.post('/editProfile', verifyToken, CORS, controller.editProfilePost)
