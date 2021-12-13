@@ -6,13 +6,15 @@ var logger = require('morgan');
 var mongoose = require('mongoose')
 var connctDB = async () => {
   try {
-    await mongoose.connect('mongodb+srv://dbAppSmai:WMZGnIzqoScefzRH@smaiapp.zdcd7.mongodb.net/dbSmai?retryWrites=true&w=majority',
+    await mongoose.connect(
+      "mongodb+srv://SuperSmai:tT2k6rfLn5in4jwS@cluster0.jrjql.mongodb.net/DbSuperSmai?retryWrites=true&w=majority",
       {
         useCreateIndex: true,
         useNewUrlParser: true,
         useFindAndModify: false,
-        useUnifiedTopology: true
-      });
+        useUnifiedTopology: true,
+      }
+    );
     console.log('Connected')
   } catch (error) {
     console.log(error.message);
